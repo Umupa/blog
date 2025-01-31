@@ -1,0 +1,4 @@
+- source: project
+  netlify:
+    - id: 5624b967-6090-4dd5-8e05-3eaa1e9af22b
+      url: https://vocal-croissant-0f025c.netlify.app
