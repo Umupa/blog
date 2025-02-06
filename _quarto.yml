@@ -2,8 +2,8 @@ project:
   type: website
 
 website:
-  title: "Horizonem's blog"
-  site-url: https://blog.horizonem.xyz
+  title: "howj's blog"
+  site-url: https://blog.howj.xyz
   open-graph: true
   twitter-card: true
   search: 
