@@ -1,4 +1,10 @@
-- source: project
-  netlify:
-    - id: 5624b967-6090-4dd5-8e05-3eaa1e9af22b
-      url: https://vocal-croissant-0f025c.netlify.app
+# 已迁移到 Cloudflare Pages
+# 部署通过 GitHub Actions 自动完成
+# 工作流配置: .github/workflows/deploy.yml
+# 目标分支: cf-pages
+
+# 旧 Netlify 配置 (已废弃)
+# - source: project
+#   netlify:
+#     - id: 5624b967-6090-4dd5-8e05-3eaa1e9af22b
+#       url: https://vocal-croissant-0f025c.netlify.app

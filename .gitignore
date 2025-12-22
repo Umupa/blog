@@ -1,2 +1,50 @@
+# Quarto 构建产物
 /.quarto/
 /_site/
+/_freeze/
+
+# IDE 配置
+/.idea/
+/.vscode/
+*.swp
+*.swo
+*~
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# 编辑器临时文件
+*.tmp
+*.bak
+*.autosave
+
+# 日志文件
+*.log
+
+# 环境变量文件
+.env
+.env.local
+
+# Node.js (如果使用)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Python (如果使用)
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# R (Quarto 可能用到)
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
