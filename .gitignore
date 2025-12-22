@@ -1,5 +1,6 @@
-# Quarto 构建缓存（保留 _site 用于 Cloudflare 部署）
+# Quarto 构建产物（由 GitHub Actions 管理）
 /.quarto/
+/_site/
 /_freeze/
 
 # IDE 配置
