@@ -35,13 +35,6 @@
     "text": "在 posts/ 下创建新目录(目录名使用 kebab-case)\n创建 index.qmd,必须包含 YAML frontmatter:\n---\ntitle: \"文章标题\"\nauthor: \"作者名\"\ndate: \"YYYY-MM-DD\"\ncategories: [分类1, 分类2]\n---\n图片资源放在同一目录下,首图会自动用于文章列表\n\n\n\n\n\n网站元信息/导航栏: 编辑 _quarto.yml\n文章默认选项: 编辑 posts/_metadata.yml\n发布目标: 编辑 _publish.yml\n\n\n\n\n\n由于 freeze: true,包含代码的文章首次渲染后会缓存输出\n更新代码输出需要删除 _freeze/ 目录或修改文章内容"
   },
   {
-    "objectID": "posts/welcome/index.html",
-    "href": "posts/welcome/index.html",
-    "title": "Welcome To My Blog",
-    "section": "",
-    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
-  },
-  {
     "objectID": "posts/post-with-code/index.html",
     "href": "posts/post-with-code/index.html",
     "title": "Post With Code",
@@ -54,5 +47,12 @@
     "title": "howj’s blog",
     "section": "",
     "text": "Post With Code\n\n\n\n\n\n\nnews\n\n\ncode\n\n\nanalysis\n\n\n\n\n\n\n\n\n\nJan 31, 2025\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 28, 2025\n\n\nTristan O’Malley\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Welcome To My Blog",
+    "section": "",
+    "text": "This is the first post in a Quarto blog. Welcome!\n\nSince this post doesn’t specify an explicit image, the first image in the post will be used in the listing page of posts."
   }
 ]

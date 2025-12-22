@@ -10,7 +10,7 @@
 <atom:link href="https://blog.howj.xyz/index.xml" rel="self" type="application/rss+xml"/>
 <description></description>
 <generator>quarto-1.6.40</generator>
-<lastBuildDate>Thu, 30 Jan 2025 16:00:00 GMT</lastBuildDate>
+<lastBuildDate>Fri, 31 Jan 2025 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Post With Code</title>
   <dc:creator>Harlow Malloc</dc:creator>
@@ -30,7 +30,7 @@
   <category>code</category>
   <category>analysis</category>
   <guid>https://blog.howj.xyz/posts/post-with-code/</guid>
-  <pubDate>Thu, 30 Jan 2025 16:00:00 GMT</pubDate>
+  <pubDate>Fri, 31 Jan 2025 00:00:00 GMT</pubDate>
   <media:content url="https://blog.howj.xyz/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
@@ -52,7 +52,7 @@
  ]]></description>
   <category>news</category>
   <guid>https://blog.howj.xyz/posts/welcome/</guid>
-  <pubDate>Mon, 27 Jan 2025 16:00:00 GMT</pubDate>
+  <pubDate>Tue, 28 Jan 2025 00:00:00 GMT</pubDate>
 </item>
 </channel>
 </rss>
