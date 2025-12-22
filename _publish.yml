@@ -1,10 +1,15 @@
-# 已迁移到 Cloudflare Pages
-# 部署通过 GitHub Actions 自动完成
-# 工作流配置: .github/workflows/deploy.yml
-# 目标分支: cf-pages
-
-# 旧 Netlify 配置 (已废弃)
-# - source: project
-#   netlify:
-#     - id: 5624b967-6090-4dd5-8e05-3eaa1e9af22b
-#       url: https://vocal-croissant-0f025c.netlify.app
+# Cloudflare Pages 部署配置
+#
+# 部署方式：直接从 main 分支的 _site 目录部署
+#
+# Cloudflare Pages 配置：
+#   - 生产分支: main
+#   - 构建命令: (留空或 :)
+#   - 构建输出目录: _site
+#   - 自动部署: 启用
+#
+# 工作流程：
+#   1. 推送源码到 main 分支
+#   2. GitHub Actions 自动渲染生成 _site
+#   3. Actions 将 _site 提交回 main 分支（[skip ci]）
+#   4. Cloudflare 检测到 main 分支更新，自动部署 _site 目录
