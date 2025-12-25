@@ -59,7 +59,7 @@ touch posts/new-post-name/index.qmd
 ### 发布流程
 - 使用 `quarto publish netlify` 直接发布
 - 目标站点: https://vocal-croissant-0f025c.netlify.app
-- 生产域名: https://blog.howj.xyz
+- 生产域名: https://umupa.fun
 
 ## 开发注意事项
 

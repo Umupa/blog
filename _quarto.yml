@@ -2,27 +2,21 @@ project:
   type: website
 
 website:
-  title: "howj's blog"
-  site-url: https://blog.howj.xyz
+  title: "Umupa"
+  favicon: favicon.svg
+  site-url: https://umupa.fun
   open-graph: true
   twitter-card: true
-  search: 
-    keyboard-shortcut: ['/']
-  navbar:
-    right:
-      - icon: person-circle
-        href: https://github.com/
-      - icon: github
-        href: https://github.com/lalaorya
+  search: false
+  navbar: false
+
 include-in-header:
-  file: cloudflare.html
+  - file: cloudflare.html
 
 format:
   html:
-    theme:
-      light: cosmo
-      dark: cosmo-dark.scss
+    theme: cosmo
     css: styles.css
-
-
-
+    page-layout: full
+    include-before-body: _includes/custom-header.html
+    include-after-body: _includes/date-formatter.html

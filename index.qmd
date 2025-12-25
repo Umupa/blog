@@ -1,15 +1,14 @@
 ---
-title: "howj's blog"
 listing:
   contents: posts
   sort: "date desc"
   type: default
-  categories: true
+  categories: false
   sort-ui: false
   filter-ui: false
   feed: true
+  fields: [date, title, description]
+  date-format: "MMM DD, YYYY"
 page-layout: full
-title-block-banner: true
+title-block-banner: false
 ---
-
-

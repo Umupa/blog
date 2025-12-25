@@ -48,3 +48,7 @@ venv/
 .Rhistory
 .RData
 .Ruserdata
+
+# Auto Claude data directory
+.auto-claude/
+.history/

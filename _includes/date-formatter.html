@@ -1,0 +1,46 @@
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const dateElements = document.querySelectorAll('.quarto-post .listing-date');
+
+    dateElements.forEach(function (el) {
+      const text = el.textContent.trim();
+      // Parse date from various formats
+      const date = new Date(text);
+
+      if (!isNaN(date.getTime())) {
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = date.toLocaleDateString('en-US', { month: 'short' });
+        const year = date.getFullYear();
+
+        el.innerHTML = `<span class="date-day">${day}</span><span class="date-month">${month} ${year}</span>`;
+        el.classList.add('formatted-date');
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Formatted date styles */
+  .quarto-post .listing-date.formatted-date {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    line-height: 1 !important;
+  }
+
+  .quarto-post .listing-date .date-day {
+    display: block !important;
+    font-size: 3rem !important;
+    font-weight: 600 !important;
+    line-height: 1 !important;
+    color: var(--text-color) !important;
+  }
+
+  .quarto-post .listing-date .date-month {
+    display: block !important;
+    font-size: 0.875rem !important;
+    color: var(--text-muted) !important;
+    margin-top: 0.25rem !important;
+  }
+</style>
