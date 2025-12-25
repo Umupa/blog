@@ -1,10 +1,10 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    // === Listing page: format dates ===
     const dateElements = document.querySelectorAll('.quarto-post .listing-date');
 
     dateElements.forEach(function (el) {
       const text = el.textContent.trim();
-      // Parse date from various formats
       const date = new Date(text);
 
       if (!isNaN(date.getTime())) {
@@ -16,6 +16,55 @@
         el.classList.add('formatted-date');
       }
     });
+
+    // === Article page: custom meta line ===
+    const titleBlock = document.querySelector('#title-block-header');
+    if (!titleBlock) return;
+
+    // Check if we're on an article page (not listing page)
+    if (document.querySelector('.quarto-listing')) return;
+
+    // Get categories
+    const categoryEls = titleBlock.querySelectorAll('.quarto-category');
+    const categories = Array.from(categoryEls).map(el => el.textContent.trim());
+
+    // Get date and format as YYYY-MM-DD
+    const dateEl = titleBlock.querySelector('.quarto-title-meta-contents p');
+    let dateText = '';
+    if (dateEl) {
+      const date = new Date(dateEl.textContent.trim());
+      if (!isNaN(date.getTime())) {
+        const year = date.getFullYear();
+        const month = (date.getMonth() + 1).toString().padStart(2, '0');
+        const day = date.getDate().toString().padStart(2, '0');
+        dateText = `${year}-${month}-${day}`;
+      }
+    }
+
+    // Build custom meta line
+    if (categories.length > 0 || dateText) {
+      const metaDiv = document.createElement('div');
+      metaDiv.className = 'article-meta';
+
+      let html = '';
+      if (categories.length > 0) {
+        html += `<span class="meta-label">Categories:</span> <span class="meta-categories">${categories.join(', ')}</span>`;
+      }
+      if (categories.length > 0 && dateText) {
+        html += `<span class="meta-separator">|</span>`;
+      }
+      if (dateText) {
+        html += `<span class="meta-date">${dateText}</span>`;
+      }
+
+      metaDiv.innerHTML = html;
+
+      // Insert after title
+      const title = titleBlock.querySelector('h1.title');
+      if (title) {
+        title.insertAdjacentElement('afterend', metaDiv);
+      }
+    }
   });
 </script>
 

@@ -1,4 +1,5 @@
 ---
+title: ""
 listing:
   contents: posts
   sort: "date desc"
@@ -9,6 +10,7 @@ listing:
   feed: true
   fields: [date, title, description]
   date-format: "MMM DD, YYYY"
+  page-size: 10
 page-layout: full
 title-block-banner: false
 ---

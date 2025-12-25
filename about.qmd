@@ -2,8 +2,6 @@
 title: "About"
 ---
 
-My VISION is **Building in Public**.
-
 I aim to share my learning journey, thoughts, and projects with the world. I believe in the power of open knowledge and continuous learning.
 
 - Find out what I'm doing at [Github](https://github.com/lalaorya)

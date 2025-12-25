@@ -47,8 +47,8 @@ nav.navbar,
   display: none !important;
 }
 
-/* Hide title block only on listing/home page */
-.quarto-listing-page #title-block-header {
+/* Hide title-block-header on listing/home page, use custom-header instead */
+body:has(.quarto-listing) #title-block-header.quarto-title-block {
   display: none !important;
 }
 
@@ -86,8 +86,12 @@ div#quarto-content>main {
   box-sizing: border-box;
 }
 
-/* Title: center on mobile, left on desktop */
-.site-title {
+/* ===== Site Title - Responsive: center on mobile, left on desktop ===== */
+.site-title,
+#title-block-header .site-title,
+#title-block-header h1.title,
+h1.site-title.title.display-7,
+#title-block-header.quarto-title-block h1 {
   font-size: 2.25rem !important;
   font-weight: 500 !important;
   margin: 0 !important;
@@ -99,8 +103,13 @@ div#quarto-content>main {
   border-bottom: none !important;
 }
 
+/* Desktop: title left-aligned */
 @media (min-width: 1024px) {
-  .site-title {
+  .site-title,
+  #title-block-header .site-title,
+  #title-block-header h1.title,
+  h1.site-title.title.display-7,
+  #title-block-header.quarto-title-block h1 {
     text-align: left !important;
   }
 }
@@ -114,7 +123,7 @@ div#quarto-content>main {
   color: var(--text-color) !important;
 }
 
-/* Subtitle row: center on mobile, space-between on desktop */
+/* ===== Subtitle row - Responsive: center column on mobile, row space-between on desktop ===== */
 .header-subtitle-row {
   display: flex !important;
   flex-direction: column !important;
@@ -125,6 +134,7 @@ div#quarto-content>main {
   width: 100% !important;
 }
 
+/* Desktop: row layout with space-between */
 @media (min-width: 1024px) {
   .header-subtitle-row {
     flex-direction: row !important;
@@ -359,18 +369,40 @@ div#quarto-content>main {
   text-align: left !important;
 }
 
-/* Hide author, date, categories in article header */
+/* Hide Quarto default meta - we use custom JS rendering */
 #title-block-header .quarto-title-meta,
 #title-block-header .quarto-categories,
 #title-block-header .description,
 #title-block-header .quarto-title-authors,
-#title-block-header .quarto-title-meta-heading,
 .quarto-title-meta,
 .quarto-title .quarto-categories,
 .quarto-title .description,
-.quarto-title-authors,
-.quarto-title-meta-heading {
+.quarto-title-authors {
   display: none !important;
+}
+
+/* Custom article meta line */
+.article-meta {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  margin-top: 0.5rem;
+}
+
+.article-meta .meta-label {
+  color: var(--text-muted);
+}
+
+.article-meta .meta-categories {
+  color: var(--link-color);
+}
+
+.article-meta .meta-separator {
+  margin: 0 0.5rem;
+  color: var(--text-muted);
+}
+
+.article-meta .meta-date {
+  color: var(--text-muted);
 }
 
 /* Article content wrapper - 内容在 main 内部，不需要自己的 padding */

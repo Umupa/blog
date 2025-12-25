@@ -1,6 +1,5 @@
 ---
 title: "Markdown 渲染测试：探索技术写作的艺术"
-author: "Umupa"
 date: "2025-12-24"
 categories: [技术, 写作, 测试]
 description: "这是一篇用于测试博客 Markdown 渲染效果的长篇文章，涵盖了各种常见的排版元素。"
