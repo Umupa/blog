@@ -19,53 +19,164 @@
 
     // === Article page: custom meta line ===
     const titleBlock = document.querySelector('#title-block-header');
-    if (!titleBlock) return;
+    if (titleBlock && !document.querySelector('.quarto-listing')) {
+      // Get categories
+      const categoryEls = titleBlock.querySelectorAll('.quarto-category');
+      const categories = Array.from(categoryEls).map(el => el.textContent.trim());
 
-    // Check if we're on an article page (not listing page)
-    if (document.querySelector('.quarto-listing')) return;
+      // Get date and format as YYYY-MM-DD
+      const dateEl = titleBlock.querySelector('.quarto-title-meta-contents p');
+      let dateText = '';
+      if (dateEl) {
+        const date = new Date(dateEl.textContent.trim());
+        if (!isNaN(date.getTime())) {
+          const year = date.getFullYear();
+          const month = (date.getMonth() + 1).toString().padStart(2, '0');
+          const day = date.getDate().toString().padStart(2, '0');
+          dateText = `${year}-${month}-${day}`;
+        }
+      }
 
-    // Get categories
-    const categoryEls = titleBlock.querySelectorAll('.quarto-category');
-    const categories = Array.from(categoryEls).map(el => el.textContent.trim());
+      // Build custom meta line
+      if (categories.length > 0 || dateText) {
+        const metaDiv = document.createElement('div');
+        metaDiv.className = 'article-meta';
 
-    // Get date and format as YYYY-MM-DD
-    const dateEl = titleBlock.querySelector('.quarto-title-meta-contents p');
-    let dateText = '';
-    if (dateEl) {
-      const date = new Date(dateEl.textContent.trim());
-      if (!isNaN(date.getTime())) {
-        const year = date.getFullYear();
-        const month = (date.getMonth() + 1).toString().padStart(2, '0');
-        const day = date.getDate().toString().padStart(2, '0');
-        dateText = `${year}-${month}-${day}`;
+        let html = '';
+        if (categories.length > 0) {
+          html += `<span class="meta-label">Categories:</span> <span class="meta-categories">${categories.join(', ')}</span>`;
+        }
+        if (categories.length > 0 && dateText) {
+          html += `<span class="meta-separator">|</span>`;
+        }
+        if (dateText) {
+          html += `<span class="meta-date">${dateText}</span>`;
+        }
+
+        metaDiv.innerHTML = html;
+
+        // Insert after title
+        const title = titleBlock.querySelector('h1.title');
+        if (title) {
+          title.insertAdjacentElement('afterend', metaDiv);
+        }
       }
     }
 
-    // Build custom meta line
-    if (categories.length > 0 || dateText) {
-      const metaDiv = document.createElement('div');
-      metaDiv.className = 'article-meta';
+    // === Code Copy Button ===
+    initCodeCopyButtons();
 
-      let html = '';
-      if (categories.length > 0) {
-        html += `<span class="meta-label">Categories:</span> <span class="meta-categories">${categories.join(', ')}</span>`;
-      }
-      if (categories.length > 0 && dateText) {
-        html += `<span class="meta-separator">|</span>`;
-      }
-      if (dateText) {
-        html += `<span class="meta-date">${dateText}</span>`;
-      }
-
-      metaDiv.innerHTML = html;
-
-      // Insert after title
-      const title = titleBlock.querySelector('h1.title');
-      if (title) {
-        title.insertAdjacentElement('afterend', metaDiv);
-      }
-    }
+    // === Medium-Zoom Image Lightbox ===
+    initMediumZoom();
   });
+
+  // === Code Copy Button Function ===
+  function initCodeCopyButtons() {
+    // Find all code blocks
+    const codeBlocks = document.querySelectorAll('article pre, article div.sourceCode');
+
+    codeBlocks.forEach((block) => {
+      // Skip if already has copy button
+      if (block.querySelector('.code-copy-button')) return;
+
+      // Get the pre element
+      const pre = block.tagName === 'PRE' ? block : block.querySelector('pre');
+      if (!pre) return;
+
+      // Set relative positioning
+      pre.style.position = 'relative';
+
+      // Extract language info and set data-lang
+      const code = pre.querySelector('code');
+      if (code) {
+        const classList = Array.from(code.classList);
+        for (const cls of classList) {
+          if (cls.startsWith('language-')) {
+            const lang = cls.replace('language-', '');
+            if (lang && lang !== 'undefined') {
+              pre.setAttribute('data-lang', lang);
+            }
+            break;
+          }
+          // Quarto uses sourceCode class format
+          if (cls.startsWith('sourceCode')) {
+            continue;
+          }
+        }
+        // Check for data-language attribute (Quarto format)
+        const dataLang = code.getAttribute('data-language') || block.getAttribute('data-language');
+        if (dataLang) {
+          pre.setAttribute('data-lang', dataLang);
+        }
+      }
+
+      // Create copy button
+      const copyBtn = document.createElement('button');
+      copyBtn.className = 'code-copy-button';
+      copyBtn.textContent = 'Copy';
+      copyBtn.type = 'button';
+
+      // Copy functionality
+      copyBtn.addEventListener('click', async () => {
+        const codeText = pre.querySelector('code')?.innerText || pre.innerText;
+
+        try {
+          await navigator.clipboard.writeText(codeText);
+          copyBtn.textContent = 'Copied!';
+          copyBtn.classList.add('copied');
+
+          setTimeout(() => {
+            copyBtn.textContent = 'Copy';
+            copyBtn.classList.remove('copied');
+          }, 2000);
+        } catch (err) {
+          console.error('Failed to copy:', err);
+          copyBtn.textContent = 'Failed';
+          setTimeout(() => {
+            copyBtn.textContent = 'Copy';
+          }, 2000);
+        }
+      });
+
+      pre.appendChild(copyBtn);
+    });
+  }
+
+  // === Medium-Zoom Image Lightbox Function ===
+  function initMediumZoom() {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js';
+    script.onload = function() {
+      if (typeof mediumZoom !== 'undefined') {
+        // Add custom styles for medium-zoom
+        const style = document.createElement('style');
+        style.textContent = `
+          .medium-zoom-overlay {
+            background: rgba(255, 255, 255, 0.95) !important;
+            z-index: 9999 !important;
+          }
+          .medium-zoom-image--opened {
+            border-radius: 0 !important;
+            z-index: 10000 !important;
+          }
+        `;
+        document.head.appendChild(style);
+
+        // Wait for images to be fully loaded, then initialize
+        setTimeout(function() {
+          const images = document.querySelectorAll('article img, .quarto-figure img, figure img, main img');
+          if (images.length > 0) {
+            mediumZoom(images, {
+              margin: 24,
+              background: 'rgba(255, 255, 255, 0.95)',
+              scrollOffset: 40
+            });
+          }
+        }, 500);
+      }
+    };
+    document.body.appendChild(script);
+  }
 </script>
 
 <style>
