@@ -1,0 +1,92 @@
+---
+title: "PhotoSwipe Markdown 测试"
+author: "Umupa"
+date: "2025-12-27"
+categories: [demo]
+description: "验证 Markdown 图片自动支持 PhotoSwipe"
+---
+
+## ✅ 好消息：无需写 HTML
+
+现在所有 Markdown 图片会**自动支持 PhotoSwipe**，你只需要正常写 Markdown 即可！
+
+## 基础用法
+
+### 单图（自动启用）
+
+```markdown
+![描述](图片.jpg)
+```
+
+效果（点击查看大图）：
+
+![风景](https://picsum.photos/1920/1080?random=20)
+
+---
+
+### 指定尺寸（推荐）
+
+```markdown
+![描述](图片.jpg){width=1920 height=1080}
+```
+
+效果：
+
+![城市](https://picsum.photos/1920/1080?random=21){width=1920 height=1080}
+
+> 💡 **提示**：指定尺寸可以避免图片加载时获取尺寸导致的布局抖动
+
+---
+
+### 多图画廊
+
+连续的图片会自动组成画廊，支持左右切换：
+
+![图片 1](https://picsum.photos/1920/1080?random=22){width=1920 height=1080}
+
+![图片 2](https://picsum.photos/1920/1080?random=23){width=1920 height=1080}
+
+![图片 3](https://picsum.photos/1920/1080?random=24){width=1920 height=1080}
+
+---
+
+## 禁用 PhotoSwipe
+
+如果某张图片不想使用 PhotoSwipe，添加 `no-pswp` 属性：
+
+```markdown
+![普通图片](image.jpg){no-pswp=true}
+```
+
+效果（这张图片不会放大）：
+
+![普通图片](https://picsum.photos/400/300?random=25){no-pswp=true}
+
+---
+
+## HTML 方式（高级）
+
+如果需要更多控制，仍然可以使用 HTML：
+
+```html
+<a href="large.jpg" data-pswp-width="1920" data-pswp-height="1080" target="_blank">
+  <img src="thumbnail.jpg" alt="描述" style="max-width: 100%; border-radius: 8px;" />
+</a>
+```
+
+<a href="https://picsum.photos/1920/1080?random=26" data-pswp-width="1920" data-pswp-height="1080" target="_blank">
+  <img src="https://picsum.photos/800/450?random=26" alt="HTML 方式示例" style="max-width: 100%; border-radius: 8px;" />
+</a>
+
+---
+
+## 工作原理
+
+博客已配置 JavaScript 自动脚本：
+
+1. 页面加载后自动查找所有 `article` 中的图片
+2. 读取图片的 `width` 和 `height` 属性（或使用默认值）
+3. 自动包装为 PhotoSwipe 链接结构
+4. 初始化 PhotoSwipe 画廊
+
+**完全零配置，写 Markdown 即可享受极致图片体验！**

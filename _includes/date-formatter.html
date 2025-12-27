@@ -66,8 +66,7 @@
     // === Code Copy Button ===
     initCodeCopyButtons();
 
-    // === Medium-Zoom Image Lightbox ===
-    initMediumZoom();
+    // Medium-Zoom 已替换为 PhotoSwipe，不再需要
   });
 
   // === Code Copy Button Function ===
@@ -140,42 +139,6 @@
 
       pre.appendChild(copyBtn);
     });
-  }
-
-  // === Medium-Zoom Image Lightbox Function ===
-  function initMediumZoom() {
-    const script = document.createElement('script');
-    script.src = 'https://cdn.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js';
-    script.onload = function() {
-      if (typeof mediumZoom !== 'undefined') {
-        // Add custom styles for medium-zoom
-        const style = document.createElement('style');
-        style.textContent = `
-          .medium-zoom-overlay {
-            background: rgba(255, 255, 255, 0.95) !important;
-            z-index: 9999 !important;
-          }
-          .medium-zoom-image--opened {
-            border-radius: 0 !important;
-            z-index: 10000 !important;
-          }
-        `;
-        document.head.appendChild(style);
-
-        // Wait for images to be fully loaded, then initialize
-        setTimeout(function() {
-          const images = document.querySelectorAll('article img, .quarto-figure img, figure img, main img');
-          if (images.length > 0) {
-            mediumZoom(images, {
-              margin: 24,
-              background: 'rgba(255, 255, 255, 0.95)',
-              scrollOffset: 40
-            });
-          }
-        }, 500);
-      }
-    };
-    document.body.appendChild(script);
   }
 </script>
 

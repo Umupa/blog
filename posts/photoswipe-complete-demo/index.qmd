@@ -1,0 +1,325 @@
+---
+title: "PhotoSwipe 网格布局完整示例"
+author: "Umupa"
+date: "2025-12-27"
+categories: [demo, tutorial]
+description: "展示 PhotoSwipe 的各种网格布局用法和最佳实践"
+---
+
+## 📌 使用说明
+
+本文展示 PhotoSwipe 的所有布局方式。点击任意图片可全屏查看，网格内的图片支持左右切换。
+
+---
+
+## 1️⃣ 默认布局（垂直排列）
+
+不使用任何网格容器，图片自动垂直堆叠：
+
+![森林小溪](https://picsum.photos/1920/1080?random=101){width=1920 height=1080}
+
+![城市夜景](https://picsum.photos/1920/1080?random=102){width=1920 height=1080}
+
+![山脉日出](https://picsum.photos/1920/1080?random=103){width=1920 height=1080}
+
+> 💡 **适用场景**：博客文章配图、单张重点图片
+
+---
+
+## 2️⃣ 两列网格（最常用）
+
+使用 `.image-grid-2` 类创建 2x2 网格，适合大多数场景：
+
+::: {.image-grid-2}
+![海滩日落](https://picsum.photos/1920/1080?random=201){width=1920 height=1080}
+
+![沙漠公路](https://picsum.photos/1920/1080?random=202){width=1920 height=1080}
+
+![雪山风光](https://picsum.photos/1920/1080?random=203){width=1920 height=1080}
+
+![湖畔小屋](https://picsum.photos/1920/1080?random=204){width=1920 height=1080}
+:::
+
+**代码**：
+```markdown
+::: {.image-grid-2}
+![海滩日落](https://picsum.photos/1920/1080?random=201){width=1920 height=1080}
+![沙漠公路](https://picsum.photos/1920/1080?random=202){width=1920 height=1080}
+![雪山风光](https://picsum.photos/1920/1080?random=203){width=1920 height=1080}
+![湖畔小屋](https://picsum.photos/1920/1080?random=204){width=1920 height=1080}
+:::
+```
+
+> 💡 **适用场景**：对比图、前后对照、作品展示
+
+---
+
+## 3️⃣ 三列网格（作品集）
+
+使用 `.image-grid-3` 类创建 3列网格，适合展示更多内容：
+
+::: {.image-grid-3}
+![建筑外观](https://picsum.photos/1920/1080?random=301){width=1920 height=1080}
+
+![室内设计](https://picsum.photos/1920/1080?random=302){width=1920 height=1080}
+
+![花园景观](https://picsum.photos/1920/1080?random=303){width=1920 height=1080}
+
+![咖啡厅](https://picsum.photos/1920/1080?random=304){width=1920 height=1080}
+
+![书店角落](https://picsum.photos/1920/1080?random=305){width=1920 height=1080}
+
+![艺术画廊](https://picsum.photos/1920/1080?random=306){width=1920 height=1080}
+:::
+
+**代码**：
+```markdown
+::: {.image-grid-3}
+![建筑外观](img1.jpg){width=1920 height=1080}
+![室内设计](img2.jpg){width=1920 height=1080}
+![花园景观](img3.jpg){width=1920 height=1080}
+<!-- 更多图片... -->
+:::
+```
+
+> 💡 **适用场景**：摄影作品集、产品展示、旅行相册
+
+---
+
+## 4️⃣ 四列网格（缩略图墙）
+
+使用 `.image-grid-4` 类创建密集型网格：
+
+::: {.image-grid-4}
+![图标1](https://picsum.photos/800/800?random=401){width=800 height=800}
+
+![图标2](https://picsum.photos/800/800?random=402){width=800 height=800}
+
+![图标3](https://picsum.photos/800/800?random=403){width=800 height=800}
+
+![图标4](https://picsum.photos/800/800?random=404){width=800 height=800}
+
+![图标5](https://picsum.photos/800/800?random=405){width=800 height=800}
+
+![图标6](https://picsum.photos/800/800?random=406){width=800 height=800}
+
+![图标7](https://picsum.photos/800/800?random=407){width=800 height=800}
+
+![图标8](https://picsum.photos/800/800?random=408){width=800 height=800}
+:::
+
+**代码**：
+```markdown
+::: {.image-grid-4}
+![图标1](img1.jpg){width=800 height=800}
+![图标2](img2.jpg){width=800 height=800}
+<!-- 更多图片... -->
+:::
+```
+
+> 💡 **适用场景**：Instagram 风格、LOGO 展示、图标库
+
+---
+
+## 5️⃣ 响应式自适应网格
+
+使用 `.image-grid-auto` 类，根据屏幕宽度自动调整列数：
+
+::: {.image-grid-auto}
+![自然风光1](https://picsum.photos/1920/1080?random=501){width=1920 height=1080}
+
+![自然风光2](https://picsum.photos/1920/1080?random=502){width=1920 height=1080}
+
+![自然风光3](https://picsum.photos/1920/1080?random=503){width=1920 height=1080}
+
+![自然风光4](https://picsum.photos/1920/1080?random=504){width=1920 height=1080}
+
+![自然风光5](https://picsum.photos/1920/1080?random=505){width=1920 height=1080}
+:::
+
+**代码**：
+```markdown
+::: {.image-grid-auto}
+![自然风光1](img1.jpg){width=1920 height=1080}
+![自然风光2](img2.jpg){width=1920 height=1080}
+<!-- 更多图片... -->
+:::
+```
+
+> 💡 **适用场景**：不确定图片数量、希望自动适配
+
+---
+
+## 6️⃣ 自定义网格（内联样式）
+
+使用内联样式完全自定义网格布局：
+
+### 5列超密集网格
+
+::: {style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem;"}
+![缩略图1](https://picsum.photos/600/600?random=601){width=600 height=600}
+
+![缩略图2](https://picsum.photos/600/600?random=602){width=600 height=600}
+
+![缩略图3](https://picsum.photos/600/600?random=603){width=600 height=600}
+
+![缩略图4](https://picsum.photos/600/600?random=604){width=600 height=600}
+
+![缩略图5](https://picsum.photos/600/600?random=605){width=600 height=600}
+:::
+
+**代码**：
+```markdown
+::: {style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem;"}
+![缩略图1](img1.jpg){width=600 height=600}
+<!-- 更多图片... -->
+:::
+```
+
+### 非对称布局（2:1）
+
+::: {style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;"}
+![大图](https://picsum.photos/1920/1080?random=701){width=1920 height=1080}
+
+![小图](https://picsum.photos/960/1080?random=702){width=960 height=1080}
+:::
+
+**代码**：
+```markdown
+::: {style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem;"}
+![大图](large.jpg){width=1920 height=1080}
+![小图](small.jpg){width=960 height=1080}
+:::
+```
+
+> 💡 **适用场景**：特殊设计需求、复杂布局
+
+---
+
+## 7️⃣ HTML 方式（完全控制）
+
+需要完全控制时，使用 HTML：
+
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0;">
+  <a href="https://picsum.photos/1920/1080?random=801" data-pswp-width="1920" data-pswp-height="1080" target="_blank">
+    <img src="https://picsum.photos/800/450?random=801" alt="HTML 示例 1" style="width: 100%; border-radius: 8px;" />
+  </a>
+  <a href="https://picsum.photos/1920/1080?random=802" data-pswp-width="1920" data-pswp-height="1080" target="_blank">
+    <img src="https://picsum.photos/800/450?random=802" alt="HTML 示例 2" style="width: 100%; border-radius: 8px;" />
+  </a>
+  <a href="https://picsum.photos/1920/1080?random=803" data-pswp-width="1920" data-pswp-height="1080" target="_blank">
+    <img src="https://picsum.photos/800/450?random=803" alt="HTML 示例 3" style="width: 100%; border-radius: 8px;" />
+  </a>
+</div>
+
+**代码**：
+```html
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+  <a href="large1.jpg" data-pswp-width="1920" data-pswp-height="1080" target="_blank">
+    <img src="thumb1.jpg" style="width: 100%; border-radius: 8px;" />
+  </a>
+  <!-- 更多图片... -->
+</div>
+```
+
+> 💡 **适用场景**：需要自定义缩略图、特殊样式
+
+---
+
+## 8️⃣ 混合布局示例
+
+在同一篇文章中混合使用不同布局：
+
+### 文章开头：重点单图
+
+![封面大图](https://picsum.photos/1920/1080?random=901){width=1920 height=1080}
+
+### 正文：2列对比
+
+::: {.image-grid-2}
+![对比图A](https://picsum.photos/1920/1080?random=902){width=1920 height=1080}
+
+![对比图B](https://picsum.photos/1920/1080?random=903){width=1920 height=1080}
+:::
+
+### 作品集：3列展示
+
+::: {.image-grid-3}
+![作品1](https://picsum.photos/1920/1080?random=904){width=1920 height=1080}
+
+![作品2](https://picsum.photos/1920/1080?random=905){width=1920 height=1080}
+
+![作品3](https://picsum.photos/1920/1080?random=906){width=1920 height=1080}
+:::
+
+---
+
+## 📱 响应式效果总结
+
+所有网格布局都会自动响应式适配：
+
+| 屏幕尺寸 | `.image-grid-2` | `.image-grid-3` | `.image-grid-4` |
+|---------|-----------------|-----------------|-----------------|
+| **桌面** (>768px) | 2列 | 3列 | 4列 |
+| **平板** (641-768px) | 2列 | 2列 | 2列 |
+| **手机** (<640px) | 1列 | 1列 | 1列 |
+
+**测试方法**：缩小浏览器窗口，观察网格自动重排。
+
+---
+
+## 🎯 最佳实践
+
+### ✅ 推荐做法
+
+1. **日常使用** → `.image-grid-2`（简洁清晰）
+2. **作品集** → `.image-grid-3`（专业美观）
+3. **缩略图墙** → `.image-grid-4`（紧凑高效）
+4. **重点图片** → 默认布局（突出重点）
+
+### ⚠️ 注意事项
+
+1. **必须指定尺寸**：`{width=1920 height=1080}` 避免布局抖动
+2. **保持宽高比一致**：同一网格内图片尺寸最好相同
+3. **手机端预览**：网格会自动变单列，提前测试
+
+---
+
+## 💡 快速参考
+
+```markdown
+# 2列网格（最常用）
+::: {.image-grid-2}
+![](img1.jpg){width=1920 height=1080}
+![](img2.jpg){width=1920 height=1080}
+:::
+
+# 3列网格
+::: {.image-grid-3}
+![](img1.jpg){width=1920 height=1080}
+<!-- 更多图片 -->
+:::
+
+# 自适应网格
+::: {.image-grid-auto}
+![](img1.jpg){width=1920 height=1080}
+<!-- 更多图片 -->
+:::
+
+# 自定义列数
+::: {style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem;"}
+![](img1.jpg){width=600 height=600}
+:::
+```
+
+---
+
+## 🎨 更多创意布局
+
+需要更多灵感？查看：
+
+- **Masonry 瀑布流**：可自定义实现
+- **大小交替**：混合使用不同 `grid-column` span
+- **全屏背景图**：使用 CSS `background-image`
+
+有问题或需要帮助？欢迎反馈！
