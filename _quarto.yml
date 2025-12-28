@@ -9,6 +9,18 @@ website:
   twitter-card: true
   search: false
   navbar: false
+  comments:
+    giscus:
+      repo: umupa/blog
+      repo-id: R_kgDONyPU6Q
+      category: Announcements
+      category-id: DIC_kwDONyPU6c4C0UA1
+      mapping: pathname
+      reactions-enabled: true
+      loading: lazy
+      input-position: bottom
+      theme: catppuccin_latte
+      language: zh-CN
 
 include-in-header:
   - file: cloudflare.html

@@ -1058,3 +1058,16 @@ p img {
   -moz-border-radius: 8px !important;
   overflow: hidden !important;
 }
+
+/* ===== Giscus Comments ===== */
+/* giscus 容器 - 与正文对齐 */
+.giscus {
+  max-width: 896px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  padding: 0 1.5rem !important;
+  box-sizing: border-box !important;
+  border-top: 1px solid var(--border-color) !important;
+  margin-top: 2rem !important;
+  padding-top: 2rem !important;
+}
