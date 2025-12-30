@@ -236,7 +236,7 @@ h1.site-title.title.display-7,
   grid-template-columns: 100px 1fr !important;
   grid-template-rows: auto !important;
   gap: 1.5rem !important;
-  margin: 2rem 0 !important;
+  margin: 2.5rem 0 !important;
   padding: 0 !important;
   border: none !important;
   background: transparent !important;
@@ -372,8 +372,8 @@ main.content#quarto-document-content {
 
 /* Article title block - simple title with bottom border */
 #title-block-header {
-  margin: 0 0 2rem 0 !important;
-  padding: 2rem 0 1rem 0 !important;
+  margin: 0 0 2.5rem 0 !important;
+  padding: 2.5rem 0 1.5rem 0 !important;
   border-bottom: 1px solid var(--border-color) !important;
 }
 
@@ -446,7 +446,7 @@ article h1 {
 article h2 {
   font-size: 1.5rem !important;
   font-weight: 700 !important;
-  margin: 2.5rem 0 1rem !important;
+  margin: 3rem 0 1.25rem !important;
   padding-bottom: 0.5rem !important;
   color: var(--text-color) !important;
   line-height: 1.4 !important;
@@ -456,7 +456,7 @@ article h2 {
 article h3 {
   font-size: 1.25rem !important;
   font-weight: 600 !important;
-  margin: 2rem 0 0.75rem !important;
+  margin: 2.5rem 0 1rem !important;
   color: var(--text-color) !important;
 }
 
@@ -469,15 +469,15 @@ article h5 {
 
 /* Paragraph spacing - key for comfortable reading */
 article p {
-  margin: 1.25em 0 !important;
-  line-height: 1.8 !important;
+  margin: 1.5em 0 !important;
+  line-height: 1.9 !important;
   font-size: 17px !important;
 }
 
 @media (min-width: 768px) {
   article p {
     font-size: 18px !important;
-    line-height: 1.85 !important;
+    line-height: 2 !important;
   }
 }
 
@@ -486,8 +486,8 @@ article blockquote {
   border-left: 4px solid var(--link-color) !important;
   background-color: #f8fafc !important;
   color: var(--text-muted) !important;
-  padding: 1rem 1.25rem !important;
-  margin: 1.5rem 0 !important;
+  padding: 1.25rem 1.5rem !important;
+  margin: 2rem 0 !important;
   border-radius: 0 8px 8px 0 !important;
   font-style: normal !important;
 }
@@ -522,14 +522,14 @@ article pre {
   padding: 1rem !important;
   padding-top: 2.5rem !important;
   border-radius: 8px !important;
-  margin: 1.5rem 0 !important;
+  margin: 2rem 0 !important;
   background-color: #1f2937 !important;
 }
 
 /* Quarto sourceCode container */
 article div.sourceCode {
   position: relative !important;
-  margin: 1.5rem 0 !important;
+  margin: 2rem 0 !important;
 }
 
 article div.sourceCode pre {
@@ -676,14 +676,14 @@ figure p img,
 /* List styles */
 article ul,
 article ol {
-  margin: 1rem 0 !important;
+  margin: 1.25rem 0 !important;
   padding-left: 1.75rem !important;
 }
 
 article ul li,
 article ol li {
-  margin: 0.5rem 0 !important;
-  line-height: 1.7 !important;
+  margin: 0.625rem 0 !important;
+  line-height: 1.8 !important;
 }
 
 article ul {
@@ -703,7 +703,7 @@ article ol li::marker {
 /* Table styles - zebra striping and hover */
 article table {
   display: block !important;
-  margin: 1.5rem 0 !important;
+  margin: 2rem 0 !important;
   border-collapse: collapse !important;
   overflow-x: auto !important;
   text-align: left !important;
@@ -801,8 +801,8 @@ article a:hover {
 /* ===== Image Grid Layout ===== */
 figure {
   margin: 0;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
 }
 
 /* Grid 容器内的 p 标签应该显示为 contents，让子元素成为 grid 项 */
@@ -1068,6 +1068,6 @@ p img {
   padding: 0 1.5rem !important;
   box-sizing: border-box !important;
   border-top: 1px solid var(--border-color) !important;
-  margin-top: 2rem !important;
-  padding-top: 2rem !important;
+  margin-top: 3rem !important;
+  padding-top: 2.5rem !important;
 }
