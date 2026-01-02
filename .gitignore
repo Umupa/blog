@@ -1,7 +1,21 @@
-# Quarto 构建产物（由 GitHub Actions 管理）
-/.quarto/
-/_site/
-/_freeze/
+# Astro 构建产物
+dist/
+.astro/
+
+# 依赖
+node_modules/
+
+# 日志文件
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# 环境变量文件
+.env
+.env.local
+.env.production
 
 # IDE 配置
 /.idea/
@@ -24,30 +38,6 @@ Desktop.ini
 *.tmp
 *.bak
 *.autosave
-
-# 日志文件
-*.log
-
-# 环境变量文件
-.env
-.env.local
-
-# Node.js (如果使用)
-node_modules/
-package-lock.json
-yarn.lock
-
-# Python (如果使用)
-__pycache__/
-*.py[cod]
-.venv/
-venv/
-
-# R (Quarto 可能用到)
-.Rproj.user/
-.Rhistory
-.RData
-.Ruserdata
 
 # Auto Claude data directory
 .auto-claude/

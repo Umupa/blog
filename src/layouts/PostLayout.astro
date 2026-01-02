@@ -1,0 +1,66 @@
+---
+import Header from '../components/Header.astro';
+import Giscus from '../components/Giscus.astro';
+import '../styles/global.css';
+import '../styles/theme-light.css';
+import '../styles/base.css';
+import '../styles/typography.css';
+
+interface Props {
+  title: string;
+  date: Date;
+  description?: string;
+  categories?: string[];
+}
+
+const { title, date, description, categories } = Astro.props;
+
+const formatDate = (date: Date) => {
+  return new Intl.DateTimeFormat('zh-CN', {
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(date);
+};
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>{title} – Umupa's blog</title>
+    {description && <meta name="description" content={description} />}
+  </head>
+  <body>
+    <Header />
+
+    <main class="container">
+      <div class="article-header">
+        <h1 class="article-title">{title}</h1>
+        <div class="article-meta">
+          {categories && categories.length > 0 && (
+            <>
+              <span class="meta-label">Categories:</span>
+              {categories.map((cat, index) => (
+                <>
+                  <span class="meta-categories">{cat}</span>
+                  {index < categories.length - 1 && <span>, </span>}
+                </>
+              ))}
+              <span class="meta-separator">|</span>
+            </>
+          )}
+          <span class="meta-date">{formatDate(date)}</span>
+        </div>
+      </div>
+
+      <article class="markdown-body heti" id="write">
+        <slot />
+      </article>
+    </main>
+
+    <Giscus />
+  </body>
+</html>

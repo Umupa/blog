@@ -1,0 +1,58 @@
+---
+import { getCollection } from 'astro:content';
+import Header from '../components/Header.astro';
+import '../styles/global.css';
+
+// 获取所有文章，按日期倒序排列
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const formatDate = (date: Date) => {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return {
+    day: String(day).padStart(2, '0'),
+    month: `${year}年${month}月`,
+  };
+};
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>Umupa's blog</title>
+    <meta name="description" content="写代码，投资，跑步，与生活" />
+  </head>
+  <body>
+    <Header />
+
+    <main class="container">
+      <ul class="post-list">
+        {posts.map((post) => {
+          const { day, month } = formatDate(post.data.date);
+          return (
+            <li class="post-item">
+              <div class="post-date">
+                <span class="date-day">{day}</span>
+                <span class="date-month">{month}</span>
+              </div>
+              <div class="post-content">
+                <h2 class="post-title">
+                  <a href={`/posts/${post.slug}`}>{post.data.title}</a>
+                </h2>
+                {post.data.description && (
+                  <p class="post-description">{post.data.description}</p>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,44 @@
+---
+import Header from '../components/Header.astro';
+import Giscus from '../components/Giscus.astro';
+import '../styles/global.css';
+import '../styles/theme-light.css';
+import '../styles/base.css';
+import '../styles/typography.css';
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <title>About – Umupa's blog</title>
+    <meta name="description" content="关于我 - Umupa" />
+  </head>
+  <body>
+    <Header />
+
+    <main class="container">
+      <div class="article-header">
+        <h1 class="article-title">About</h1>
+      </div>
+
+      <article class="markdown-body heti" id="write">
+        <p>我是Umupa（悠姆帕），一名后端软件工程师，半严肃跑者，业务羽毛球爱好者,轻度二次元。</p>
+
+        <blockquote>
+          <p>为什么网名是Umupa，来源于 B 站二次元 Vtuber <a href="https://space.bilibili.com/1638789" target="_blank" rel="noopener">悠姆帕不是大果冻</a>，一位非常可爱的虚拟主播，感兴趣的可以关注一下～</p>
+        </blockquote>
+
+        <ul>
+          <li>我使用 Rust、Kotlin 和 Go 进行编程，也会一点 c 和 前端</li>
+          <li>vibecoding的忠实信徒，使用 claudecode/codex 来构建软件</li>
+          <li>在博客沉淀技术/生活/思考，使用 <a href="https://weekly.umupa.fun" target="_blank" rel="noopener">slime周刊</a>，每周记录一些有趣的东西</li>
+        </ul>
+      </article>
+    </main>
+
+    <Giscus />
+  </body>
+</html>
