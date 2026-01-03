@@ -1,8 +1,8 @@
 /* 导入妙言字体 */
 @font-face {
   font-family: 'TsangerJinKai02-W04';
-  font-display: fallback;
-  src: url('https://cdn.miaoyan.app/Resources/Fonts/TsangerJinKai02-W04.ttf') format('truetype');
+  font-display: swap;
+  src: url('/fonts/TsangerJinKai02-W04.ttf') format('truetype');
 }
 
 /* CSS 变量 - 继承自 theme-light.css */
