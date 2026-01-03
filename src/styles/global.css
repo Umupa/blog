@@ -2,7 +2,8 @@
 @font-face {
   font-family: 'TsangerJinKai02-W04';
   font-display: swap;
-  src: url('/fonts/TsangerJinKai02-W04.ttf') format('truetype');
+  src: url('/fonts/TsangerJinKai02-W04.woff2') format('woff2'),
+       url('/fonts/TsangerJinKai02-W04.ttf') format('truetype');
 }
 
 /* CSS 变量 - 继承自 theme-light.css */

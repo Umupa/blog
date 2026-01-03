@@ -9,6 +9,10 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^5.16.6"
+    "astro": "^5.16.6",
+    "rehype-retext": "^5.0.1",
+    "retext-smartypants": "^6.2.0",
+    "retext-stringify": "^4.0.0",
+    "unified": "^11.0.5"
   }
 }
