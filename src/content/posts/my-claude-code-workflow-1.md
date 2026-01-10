@@ -15,9 +15,7 @@ categories: ["AI"]
 ![](https://static.umupa.fun/2026/01/3fe564e0ccba04efc1c9e982eb3287a4.jpg)
 
 为什么选择 kitty 而不是直接在 IDE 中运行 terminal、或者使用 VSCode 插件。两个原因：
-
 1. [kitty](https://sw.kovidgoyal.net/kitty/) 是一个轻量级的终端，体验丝滑。由于终端无法随时编辑文件，相比 IDE 更能让我把注意力集中在与 「ClaudeCode」的对话上。事实上，我很少主动 coding，只进行 code review，所有的编码工作交给 Claude
-
 2. 我相信你一定遇到过这样的场景：满怀信心地把任务交给 Claude，心想"这下可以去喝杯咖啡了"，切屏开始处理其他工作。十分钟后切回来，满心期待地想看看成果，结果发现 Claude 正在屏幕那头静静等你回来点个"确认授权"，血压直接就上来了😡。
    Kitty 可以解决这个问题，它支持系统通知，当 Claude Code 需要授权时，Mac 右上角会自动弹出提醒，再搭配 [ccmate](https://github.com/djyde/ccmate)，还能实时看到 Claude 正在调用什么 tool、任务是否完成。效果如下：
    ![](https://static.umupa.fun/2026/01/b48dc0779520862650893f25c6a14653.jpg)
@@ -42,10 +40,8 @@ categories: ["AI"]
 ![](https://static.umupa.fun/2026/01/461b4d35f776fbcac3a09a37a2eadd46.jpg)
 下面简单介绍下，superpower 是一套完整的 AI 编程工作流，本质上封装了多个“Skill”和“command”，内置 20+ 个设计得非常优雅的软件开发领域的 Skills，它的工作流围绕两个核心命令：
 
-1. /brainstorming - 脑暴阶段
-   和你反复确认需求细节、技术选型、方案权衡，最终输出设计文档和详细执行计划。这个执行计划非常非常的详细，会拆分为多个 task，每个 task 细分为多个 step，每个 step 会写明代码实现、验证步骤等
-2. /execute-plan - 执行阶段
-   根据计划逐步实现，每完成一步都会验证结果，确保不会跑偏
+1. **/brainstorming - 脑暴阶段**: 和你反复确认需求细节、技术选型、方案权衡，最终输出设计文档和详细执行计划。这个执行计划非常非常的详细，会拆分为多个 task，每个 task 细分为多个 step，每个 step 会写明代码实现、验证步骤等
+2. **/execute-plan - 执行阶段**: 根据计划逐步实现，每完成一步都会验证结果，确保不会跑偏
 
 此外还内置了 TDD（测试驱动开发）、系统化调试、代码审查等专业 Skills，强调 YAGNI（不做过度设计）和 DRY（避免重复代码）原则。
 
@@ -74,17 +70,16 @@ categories: ["AI"]
 ![](https://static.umupa.fun/2026/01/d34de1cbbb415510bc9809c8df730519.jpg)
 
 1、**需求录入** - 首先我会在 Zed 上进行需求录入，采用 md 格式。这一步非常重要，我大概有 30% 的时间花在需求录入上，我会把能想到的关于此需求的背景、最终目标、可行的技术方案、风险点、外部 API 文档等等一切资源，都在需求文档中说明。对于需求文档，我不会太在意格式，会有比较多口语化的表达。
-2、**脑暴阶段** - 把需求 MD 喂给 Claude，调用 `/superpowers:brainstorm` 和 claude 进行思维碰撞。这个阶段不写任何代码，只讨论设计方案和实现细节，最终输出 `design.md` 和 `implement.md`，保证最终的实现方案是完美符合我的预期的。
-3、 **执行阶段** - 这里我会选择新起一个 ClaudeCode 会话，而不是在脑暴会话中进行代码实现。新会话的好处：
 
-- 原先脑暴会话已经经过多轮对话了，一般情况下上下文会比较满，新会话响应更快，并且不会“犯傻”
-- `implement.md` 足够详细，无需额外上下文
+2、**脑暴阶段** - 把需求 MD 喂给 Claude，调用 `/superpowers:brainstorm` 和 claude 进行思维碰撞。这个阶段不写任何代码，只讨论设计方案和实现细节，最终输出 `design.md` 和 `implement.md`，保证最终的实现方案是完美符合我的预期的。
+
+3、 **执行阶段** - 这里我会选择新起一个 ClaudeCode 会话，而不是在脑暴会话中进行代码实现。新会话的好处：一、原先脑暴会话已经经过多轮对话了，一般情况下上下文会比较满，新会话响应更快，并且不会“犯傻”；二、`implement.md` 足够详细，无需额外上下文
 
 4、 **CodeReview** - 在 Zed 中进行代码审查和功能验收。关于代码审查，对于一些代码细节和实现原理，这里我会使用 zed-agent 来辅助我进行代码 review，当然，你也可以在终端新建一个 ClaudeCode 会话或者使用 Zed的 Claude Agent。**原则是尽量不在脑暴和执行会话中引入太多不必要的问题，保持这两个会话的「干净」**。发现问题后，将改进项写入新的需求 MD
 
 5、 **LOOP** - 改进项 MD 喂回脑暴会话，开始下一轮迭代
 
-非常简单，但是效果超群。充分的前期设计可以提升 AI 的效率和质量，避免多次的来回拉扯。
+**非常简单，但是效果超群。充分的前期设计可以提升 AI 的效率和质量，避免多次的来回拉扯。**
 
 举个真实案例：我用这套工作流将个人博客从 Quarz 框架迁移到 Astro 框架。脑暴阶段确认好设计方案后，我让 Claude 执行计划，然后就去睡午觉了。醒来发现 Claude Code 已经完美完成任务——中间零中断，一次成功，共计 5000+ 行代码变更。
 
@@ -98,9 +93,9 @@ categories: ["AI"]
 - 执行会话使用 **Sonnet / GLM**：`implement.md` 已足够详细，轻量模型即可完成，节省 token
 - zed-agent：选择使用 deepseek 模型，价格非常便宜，十块钱能用一个月，并且 Chat 的质量非常不错。
 
-**planning with file**
+**使用 MD 进行规划**
 
-使用 MD 进行规划。这个理念与 [planning-with-files](https://github.com/OthmanAdi/planning-with-files) 一致，所有的需求录入、外部资源、项目规划、技术方案等我都采用持久化的 MD 格式，而不是直接在 Claude 对话中输入，原因是：
+这个理念与 [planning-with-files](https://github.com/OthmanAdi/planning-with-files) 一致，所有的需求录入、外部资源、项目规划、技术方案等我都采用持久化的 MD 格式，而不是直接在 Claude 对话中输入，原因是：
 
 - Claude 会话上下文有限，内存中容易丢失，导致 Claude 偏离目标
 - 记录所有错误、失败，避免重复
