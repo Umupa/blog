@@ -1,0 +1,61 @@
+---
+import { getCollection } from 'astro:content';
+import Header from '../../components/Header.astro';
+import '../../styles/global.css';
+
+const posts = (await getCollection('investing')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const formatDate = (date: Date) => {
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  return {
+    day: String(day).padStart(2, '0'),
+    month: `${year}年${month}月`,
+  };
+};
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/TsangerJinKai02-W04.woff2" as="font" type="font/woff2" crossorigin />
+    <title>Investing – Umupa's blog</title>
+    <meta name="description" content="投资理财" />
+  </head>
+  <body>
+    <Header />
+
+    <main class="container">
+      <p class="page-tagline">复利是世界第八大奇迹</p>
+
+      <ul class="post-list">
+        {posts.map((post) => {
+          const { day, month } = formatDate(post.data.date);
+          return (
+            <li class="post-item">
+              <div class="post-date">
+                <span class="date-day">{day}</span>
+                <span class="date-month">{month}</span>
+              </div>
+              <div class="post-content">
+                <h2 class="post-title">
+                  <a href={`/investing/${post.slug}`}>{post.data.title}</a>
+                </h2>
+                {post.data.description && (
+                  <p class="post-description">{post.data.description}</p>
+                )}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    </main>
+  </body>
+</html>
