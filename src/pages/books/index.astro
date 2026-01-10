@@ -1,0 +1,86 @@
+---
+import { getCollection } from 'astro:content';
+import Header from '../../components/Header.astro';
+import '../../styles/global.css';
+
+const books = (await getCollection('books')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const statusConfig = {
+  finished: {
+    icon: `<svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>`,
+    text: '已读',
+    class: 'status-finished'
+  },
+  reading: {
+    icon: `<svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/></svg>`,
+    text: '在读',
+    class: 'status-reading'
+  },
+  todo: {
+    icon: `<svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>`,
+    text: '待读',
+    class: 'status-todo'
+  }
+};
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/TsangerJinKai02-W04.woff2" as="font" type="font/woff2" crossorigin />
+    <title>Books – Umupa's blog</title>
+    <meta name="description" content="读书笔记" />
+  </head>
+  <body>
+    <Header />
+
+    <main class="container">
+      <p class="page-tagline">种一棵树最好的时间是十年前，其次是现在</p>
+
+      <div class="book-grid">
+        {books.map((book) => {
+          const status = statusConfig[book.data.status];
+          return book.data.status !== 'todo' ? (
+            <a href={`/books/${book.slug}`} class="book-card book-card-clickable" title="查看读书笔记">
+              <div class="book-cover-wrapper">
+                <img src={book.data.cover} alt={book.data.title} class="book-cover" />
+              </div>
+              <div class="book-info">
+                <div class="book-title-row">
+                  <h3 class="book-title">{book.data.title}</h3>
+                  <div class={`book-status ${status.class}`}>
+                    <span set:html={status.icon} />
+                    <span class="status-text">{status.text}</span>
+                  </div>
+                </div>
+                <p class="book-author">{book.data.author}</p>
+              </div>
+            </a>
+          ) : (
+            <div class="book-card book-card-disabled">
+              <div class="book-cover-wrapper">
+                <img src={book.data.cover} alt={book.data.title} class="book-cover" />
+              </div>
+              <div class="book-info">
+                <div class="book-title-row">
+                  <h3 class="book-title">{book.data.title}</h3>
+                  <div class={`book-status ${status.class}`}>
+                    <span set:html={status.icon} />
+                    <span class="status-text">{status.text}</span>
+                  </div>
+                </div>
+                <p class="book-author">{book.data.author}</p>
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </main>
+  </body>
+</html>

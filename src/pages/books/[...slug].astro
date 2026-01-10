@@ -1,0 +1,57 @@
+---
+import { getCollection } from 'astro:content';
+import Header from '../../components/Header.astro';
+import Giscus from '../../components/Giscus.astro';
+import '../../styles/global.css';
+import '../../styles/theme-light.css';
+import '../../styles/base.css';
+import '../../styles/typography.css';
+
+export async function getStaticPaths() {
+  const books = await getCollection('books');
+  return books.map((book) => ({
+    params: { slug: book.slug },
+    props: { book },
+  }));
+}
+
+const { book } = Astro.props;
+const { Content } = await book.render();
+
+const formatDate = (date: Date) => {
+  return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
+};
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/TsangerJinKai02-W04.woff2" as="font" type="font/woff2" crossorigin />
+    <title>{book.data.title} – Umupa's blog</title>
+    <meta name="description" content={`${book.data.title} - ${book.data.author} 读书笔记`} />
+  </head>
+  <body>
+    <Header />
+
+    <main class="container">
+      <div class="article-header">
+        <h1 class="article-title">{book.data.title}</h1>
+        <p class="article-meta">
+          <span class="meta-author">{book.data.author}</span>
+          <span class="meta-separator">·</span>
+          <span class="meta-date">{formatDate(book.data.date)}</span>
+        </p>
+      </div>
+
+      <article class="markdown-body heti" id="write">
+        <Content />
+      </article>
+    </main>
+
+    <Giscus />
+  </body>
+</html>
