@@ -1,10 +1,11 @@
 ---
-title: "我是如何使用 ClaudeCode 进行编码的"
+title: "我是如何使用 ClaudeCode 进行编程的"
 date: 2026-01-11
 description: "分享近期摸索出来的 Claude Code 编程工作流实践，计划与执行分离，让 AI 一次做对"
 categories: ["AI"]
 ---
 使用 ClaudeCode 进行编码已经很久了，体验了 Claude 从 mcp、skill 再到 plugin 一步步以来的进化。近期才算探索出了一套效果不错的工作流，分享给大家。
+![](https://static.umupa.fun/2026/01/8b8681506bc4f2fd57143ea99371c507.jpg)
 
 # 工具集（TOOLSET）
 
@@ -62,7 +63,7 @@ categories: ["AI"]
 
 # 工作流（WORKFLOW）
 
-我的工作流是一个围绕 superpowers 的 **Loop**，核心思想是 **master** 和 **worker** 分离：
+我的工作流是一个围绕 *superpowers* 的 **Loop**，核心思想是 **master** 和 **worker** 分离：
 
 - **脑暴会话 (master)**：专注于思考和设计，输出高质量的设计文档和执行计划
 - **执行会话 (worker)**：专注于代码实现，执行详细的计划
@@ -77,7 +78,7 @@ categories: ["AI"]
 
 4、 **CodeReview** - 在 Zed 中进行代码审查和功能验收。关于代码审查，对于一些代码细节和实现原理，这里我会使用 zed-agent 来辅助我进行代码 review，当然，你也可以在终端新建一个 ClaudeCode 会话或者使用 Zed的 Claude Agent。**原则是尽量不在脑暴和执行会话中引入太多不必要的问题，保持这两个会话的「干净」**。发现问题后，将改进项写入新的需求 MD
 
-5、 **LOOP** - 改进项 MD 喂回脑暴会话，开始下一轮迭代
+5、 **LOOP** - 改进项 MD 喂回脑暴会话，开始下一轮脑暴迭代
 
 **非常简单，但是效果超群。充分的前期设计可以提升 AI 的效率和质量，避免多次的来回拉扯。**
 
