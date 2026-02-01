@@ -9,7 +9,6 @@ html {
   color: var(--text-color);
   font-family: var(--text-font);
   -webkit-font-smoothing: subpixel-antialiased;
-  overscroll-behavior: none;
   width: 100%;
   overflow-x: hidden;
 }
@@ -19,7 +18,6 @@ body {
   margin: 0;
   background: var(--bg-color);
   font-family: var(--text-font);
-  overscroll-behavior: none;
   -webkit-overflow-scrolling: touch;
   width: 100%;
   min-height: 100vh;
