@@ -4,7 +4,7 @@ date: 2026-02-15
 description: "分享这段时间以来在 Vibe Coding 上的新尝试和思考"
 categories: ["AI"]
 ---
-距离我发布[第一篇 Vibe Coding 的文章](https://umupa.fun/posts/my-claude-code-workflow-1/)才一个多月，这一个月已经涌现出了非常多有趣的 coding 产品和模型，在 AI 领域，现在基本是按周为单位进行迭代了。
+距离我发布[第一篇 Vibe Coding 的文章](https://umupa.fun/posts/how-i-vibe-coding-1/)才一个多月，这一个月已经涌现出了非常多有趣的 coding 产品和模型，在 AI 领域，现在基本是按周为单位进行迭代了。
 
 这篇文章会更新这段时间以来我在 Vibe Coding 上的新尝试和思考。
 

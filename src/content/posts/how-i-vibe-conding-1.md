@@ -1,5 +1,5 @@
 ---
-title: "我是如何使用 ClaudeCode 进行编程的"
+title: "How I Vibe Coding"
 date: 2026-01-11
 description: "分享近期摸索出来的 Claude Code 编程工作流实践，计划与执行分离，让 AI 一次做对"
 categories: ["AI"]
