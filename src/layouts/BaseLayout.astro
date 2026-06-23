@@ -1,0 +1,121 @@
+---
+import Header from '../components/Header.astro';
+import '../styles/theme.css';
+import '../styles/base.css';
+import '../styles/typography.css';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "Umupa's blog",
+  description,
+} = Astro.props;
+
+const pageTitle = title === "Umupa's blog" ? title : `${title} - Umupa's blog`;
+---
+
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <script is:inline>
+      (() => {
+        let savedTheme;
+        try {
+          savedTheme = localStorage.getItem('theme');
+        } catch {
+          savedTheme = undefined;
+        }
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        const theme = savedTheme || systemTheme;
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preload" href="/fonts/TsangerJinKai02-W04-subset.woff2" as="font" type="font/woff2" crossorigin />
+    <title>{pageTitle}</title>
+    {description && <meta name="description" content={description} />}
+  </head>
+  <body>
+    <Header />
+    <slot />
+    <div class="image-lightbox" data-image-lightbox hidden>
+      <button type="button" aria-label="关闭图片预览" data-lightbox-close>×</button>
+      <img alt="" data-lightbox-image />
+    </div>
+    <script is:inline>
+      (() => {
+        const lightbox = document.querySelector('[data-image-lightbox]');
+        const lightboxImage = document.querySelector('[data-lightbox-image]');
+        const closeButton = document.querySelector('[data-lightbox-close]');
+
+        document.addEventListener('click', (event) => {
+          const image = event.target.closest?.('.markdown-body img');
+          if (!image || !lightbox || !lightboxImage) return;
+          lightboxImage.src = image.currentSrc || image.src;
+          lightboxImage.alt = image.alt || '';
+          lightbox.hidden = false;
+          document.body.classList.add('is-lightbox-open');
+        });
+
+        const closeLightbox = () => {
+          if (!lightbox || !lightboxImage) return;
+          lightbox.hidden = true;
+          lightboxImage.removeAttribute('src');
+          document.body.classList.remove('is-lightbox-open');
+        };
+
+        closeButton?.addEventListener('click', closeLightbox);
+        lightbox?.addEventListener('click', (event) => {
+          if (event.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') closeLightbox();
+        });
+
+        document.querySelectorAll('pre').forEach((pre) => {
+          const code = pre.querySelector('code');
+          if (!code || pre.dataset.enhanced === 'true') return;
+          pre.dataset.enhanced = 'true';
+
+          const languageClass = Array.from(code.classList).find((className) => className.startsWith('language-'));
+          const language = languageClass?.replace('language-', '');
+
+          if (language) {
+            const label = document.createElement('span');
+            label.className = 'code-language';
+            label.textContent = language;
+            pre.append(label);
+          }
+
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'code-copy';
+          button.textContent = 'Copy';
+          button.addEventListener('click', async () => {
+            try {
+              await navigator.clipboard.writeText(code.innerText);
+              button.textContent = 'Copied';
+              window.setTimeout(() => {
+                button.textContent = 'Copy';
+              }, 1400);
+            } catch {
+              button.textContent = 'Failed';
+              window.setTimeout(() => {
+                button.textContent = 'Copy';
+              }, 1400);
+            }
+          });
+          pre.append(button);
+        });
+      })();
+    </script>
+  </body>
+</html>

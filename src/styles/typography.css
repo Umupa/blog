@@ -12,7 +12,7 @@ pre, video, iframe {
 }
 
 a {
-  color: #0C6ADA;
+  color: var(--link-color);
   cursor: pointer;
 }
 
@@ -235,14 +235,15 @@ a {
   margin: 0;
   margin-block-start: 0.8em;
   margin-block-end: 1.6em;
-  padding: 0 15px;
+  padding: 0.7rem 1rem;
   border-radius: 8px;
-  color: #777;
-  border-left: 4px solid var(--blockquote-border-color, #d0d0d0);
+  color: var(--text-color);
+  background: var(--blockquote-bg);
+  border-left: 4px solid var(--blockquote-border-color);
   line-height: 1;
   overflow: hidden;
   box-sizing: border-box;
-  width: fit-content;
+  width: 100%;
   max-width: 100%;
 }
 
@@ -269,7 +270,7 @@ blockquote blockquote {
   border-collapse: collapse;
   border-width: 1px;
   border-style: solid;
-  border-color: #e6e6e6;
+  border-color: var(--border-color);
   word-break: break-word;
 }
 
@@ -281,7 +282,7 @@ blockquote blockquote {
   padding-inline-end: 8px;
   border-width: 1px;
   border-style: solid;
-  border-color: #e6e6e6;
+  border-color: var(--border-color);
 }
 
 .heti caption {
@@ -301,7 +302,7 @@ blockquote blockquote {
   margin-inline-start: auto;
   margin-inline-end: auto;
   border: 0;
-  background-color: #e6e6e6;
+  background-color: var(--border-color);
 }
 
 /* Figure */
@@ -390,7 +391,7 @@ blockquote blockquote {
   padding-inline-end: 1px;
   margin-inline-start: 1px;
   margin-inline-end: 1px;
-  background-color: rgba(255, 247, 0, 0.88);
+  background-color: var(--mark-bg);
   color: inherit;
 }
 
@@ -434,14 +435,14 @@ blockquote blockquote {
 
 .heti sup:target,
 .heti sup a:target {
-  background-color: #dbedff;
+  background-color: var(--target-bg);
 }
 
 .heti u[title] {
   cursor: help;
   border-block-end-width: 3px;
   border-block-end-style: double;
-  border-block-end-color: rgba(0, 0, 0, 0.54);
+  border-block-end-color: color-mix(in srgb, var(--text-muted), transparent 30%);
 }
 
 .heti summary {
@@ -486,7 +487,7 @@ blockquote blockquote {
 
 .heti p > code,
 .heti li > code {
-  background-color: #eef1f2;
+  background-color: var(--code-bg);
   padding: 2px;
   border-radius: 8px;
 }
@@ -513,7 +514,7 @@ blockquote blockquote {
   border-radius: 0;
   color: inherit;
   white-space: pre-wrap;
-  font-family: var(--text-font, 'TsangerJinKai02-W04', -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Hiragino Sans GB, Microsoft YaHei UI, Microsoft YaHei, Arial, sans-serif);
+  font-family: var(--code-font);
 }
 
 .heti pre code span {
@@ -522,14 +523,14 @@ blockquote blockquote {
 
 /* Code Highlighting */
 .hljs {
-  background: #f8f8f8;
-  color: #000;
+  background: transparent;
+  color: var(--hljs-base);
 }
 
 .hljs-comment,
 .hljs-quote,
 .hljs-variable {
-  color: #035c21;
+  color: var(--hljs-comment);
 }
 
 .hljs-built_in,
@@ -537,7 +538,7 @@ blockquote blockquote {
 .hljs-name,
 .hljs-selector-tag,
 .hljs-tag {
-  color: #0a69d9;
+  color: var(--hljs-keyword);
 }
 
 .hljs-addition,
@@ -549,28 +550,28 @@ blockquote blockquote {
 .hljs-template-variable,
 .hljs-title,
 .hljs-type {
-  color: #bf3889;
+  color: var(--hljs-string);
 }
 
 .hljs-deletion,
 .hljs-meta,
 .hljs-selector-attr,
 .hljs-selector-pseudo {
-  color: #208bff;
+  color: var(--hljs-number);
 }
 
 .hljs-doctag {
-  color: #6e7781;
+  color: var(--hljs-comment);
 }
 
 .hljs-attr {
-  color: #cf212e;
+  color: var(--hljs-attribute);
 }
 
 .hljs-bullet,
 .hljs-link,
 .hljs-symbol {
-  color: #8250df;
+  color: var(--hljs-title);
 }
 
 .hljs-emphasis {
@@ -598,7 +599,7 @@ code.language-mermaid .edgeLabel{
 
 .heti pre.mermaid-image-container {
   padding: 0;
-  background: #f7f7f7;
+  background: var(--diagram-bg);
 }
 
 .heti pre.markmap-image-container {
@@ -646,7 +647,7 @@ mjx-container[display='block'] {
 .heti .heti-fn {
   margin-block-start: 59px;
   border-block-start: 1px solid;
-  border-block-start-color: #e6e6e6;
+  border-block-start-color: var(--border-color);
   font-size: 14px;
   line-height: 24px;
 }
@@ -657,7 +658,7 @@ mjx-container[display='block'] {
 }
 
 .heti .heti-fn li:target {
-  background-color: #dbedff;
+  background-color: var(--target-bg);
 }
 
 .heti .heti-hang {

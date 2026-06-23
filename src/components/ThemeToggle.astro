@@ -1,0 +1,48 @@
+<button class="theme-toggle" type="button" aria-label="切换深浅色主题" data-theme-toggle>
+  <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+    <circle cx="12" cy="12" r="4"></circle>
+    <path d="M12 2v2"></path>
+    <path d="M12 20v2"></path>
+    <path d="m4.93 4.93 1.41 1.41"></path>
+    <path d="m17.66 17.66 1.41 1.41"></path>
+    <path d="M2 12h2"></path>
+    <path d="M20 12h2"></path>
+    <path d="m6.34 17.66-1.41 1.41"></path>
+    <path d="m19.07 4.93-1.41 1.41"></path>
+  </svg>
+  <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M12 3a6.8 6.8 0 0 0 8.8 8.8 8.2 8.2 0 1 1-8.8-8.8Z"></path>
+  </svg>
+</button>
+
+<script is:inline>
+  (() => {
+    const toggles = document.querySelectorAll('[data-theme-toggle]');
+    if (toggles.length === 0) return;
+
+    const applyLabel = () => {
+      const isDark = document.documentElement.dataset.theme === 'dark';
+      toggles.forEach((toggle) => {
+        toggle.setAttribute('aria-label', isDark ? '切换到浅色主题' : '切换到深色主题');
+        toggle.setAttribute('title', isDark ? '切换到浅色主题' : '切换到深色主题');
+      });
+    };
+
+    applyLabel();
+
+    toggles.forEach((toggle) => {
+      toggle.addEventListener('click', () => {
+        const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = nextTheme;
+        document.documentElement.style.colorScheme = nextTheme;
+        try {
+          localStorage.setItem('theme', nextTheme);
+        } catch {
+          // The visual theme can still switch when persistence is unavailable.
+        }
+        window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: nextTheme } }));
+        applyLabel();
+      });
+    });
+  })();
+</script>

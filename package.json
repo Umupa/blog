@@ -6,6 +6,8 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "font:subset": "node scripts/subset-font.mjs",
+    "test": "astro build",
     "astro": "astro"
   },
   "dependencies": {

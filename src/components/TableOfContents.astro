@@ -1,0 +1,114 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+
+interface Props {
+  headings?: Heading[];
+}
+
+const headings = (Astro.props.headings || []).filter((heading) => heading.depth >= 1 && heading.depth <= 3);
+---
+
+{headings.length > 1 && (
+  <div class="toc-shell" data-toc-shell>
+    <button
+      class="toc-floating-toggle"
+      type="button"
+      aria-controls="article-toc"
+      aria-expanded="false"
+      data-toc-toggle
+    >
+      TOC
+    </button>
+
+    <aside class="article-toc" id="article-toc" aria-label="文章目录" data-toc-panel>
+      <div class="toc-heading">
+        <p>目录</p>
+        <button class="toc-close" type="button" aria-label="隐藏目录" data-toc-close>
+          ×
+        </button>
+      </div>
+      <nav>
+        {headings.map((heading) => (
+          <a href={`#${heading.slug}`} class:list={[`toc-depth-${heading.depth}`]} data-toc-link>
+            {heading.text}
+          </a>
+        ))}
+      </nav>
+    </aside>
+
+    <script is:inline>
+      (() => {
+        const shell = document.currentScript?.closest('[data-toc-shell]');
+        if (!shell) return;
+
+        const panel = shell.querySelector('[data-toc-panel]');
+        const toggle = shell.querySelector('[data-toc-toggle]');
+        const close = shell.querySelector('[data-toc-close]');
+        const links = shell.querySelectorAll('[data-toc-link]');
+        const desktopQuery = window.matchMedia('(min-width: 1440px)');
+        const storageKey = 'umupa-toc-collapsed-v3';
+
+        const getDesktopCollapsed = () => {
+          try {
+            return localStorage.getItem(storageKey) === 'true';
+          } catch {
+            return false;
+          }
+        };
+
+        const setDesktopCollapsed = (collapsed) => {
+          try {
+            localStorage.setItem(storageKey, collapsed ? 'true' : 'false');
+          } catch {
+            // localStorage can be unavailable in private contexts.
+          }
+        };
+
+        const sync = (open, persist = false) => {
+          const isDesktop = desktopQuery.matches;
+          shell.classList.toggle('is-open', open);
+          shell.classList.toggle('is-collapsed', isDesktop && !open);
+          panel?.setAttribute('aria-hidden', open ? 'false' : 'true');
+          toggle?.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+          if (persist && isDesktop) {
+            setDesktopCollapsed(!open);
+          }
+        };
+
+        const resetForViewport = () => {
+          sync(desktopQuery.matches ? !getDesktopCollapsed() : false);
+        };
+
+        toggle?.addEventListener('click', () => {
+          sync(!shell.classList.contains('is-open'), true);
+        });
+
+        close?.addEventListener('click', () => {
+          sync(false, true);
+        });
+
+        links.forEach((link) => {
+          link.addEventListener('click', () => {
+            if (!desktopQuery.matches) {
+              sync(false);
+            }
+          });
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape' && shell.classList.contains('is-open')) {
+            sync(false, true);
+          }
+        });
+
+        desktopQuery.addEventListener('change', resetForViewport);
+        resetForViewport();
+      })();
+    </script>
+  </div>
+)}

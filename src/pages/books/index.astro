@@ -1,7 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import Header from '../../components/Header.astro';
-import '../../styles/global.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
 
 const books = (await getCollection('books')).sort(
   (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
@@ -26,61 +25,47 @@ const statusConfig = {
 };
 ---
 
-<!DOCTYPE html>
-<html lang="zh-CN">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="color-scheme" content="light" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="preload" href="/fonts/TsangerJinKai02-W04.woff2" as="font" type="font/woff2" crossorigin />
-    <title>Books – Umupa's blog</title>
-    <meta name="description" content="读书笔记" />
-  </head>
-  <body>
-    <Header />
+<BaseLayout title="Books" description="读书笔记">
+  <main class="container">
+    <p class="page-tagline">种一棵树最好的时间是十年前，其次是现在</p>
 
-    <main class="container">
-      <p class="page-tagline">种一棵树最好的时间是十年前，其次是现在</p>
-
-      <div class="book-grid">
-        {books.map((book) => {
-          const status = statusConfig[book.data.status];
-          return book.data.status !== 'todo' ? (
-            <a href={`/books/${book.slug}`} class="book-card book-card-clickable" title="查看读书笔记">
-              <div class="book-cover-wrapper">
-                <img src={book.data.cover} alt={book.data.title} class="book-cover" />
-              </div>
-              <div class="book-info">
-                <div class="book-title-row">
-                  <h3 class="book-title">{book.data.title}</h3>
-                  <div class={`book-status ${status.class}`}>
-                    <span set:html={status.icon} />
-                    <span class="status-text">{status.text}</span>
-                  </div>
-                </div>
-                <p class="book-author">{book.data.author}</p>
-              </div>
-            </a>
-          ) : (
-            <div class="book-card book-card-disabled">
-              <div class="book-cover-wrapper">
-                <img src={book.data.cover} alt={book.data.title} class="book-cover" />
-              </div>
-              <div class="book-info">
-                <div class="book-title-row">
-                  <h3 class="book-title">{book.data.title}</h3>
-                  <div class={`book-status ${status.class}`}>
-                    <span set:html={status.icon} />
-                    <span class="status-text">{status.text}</span>
-                  </div>
-                </div>
-                <p class="book-author">{book.data.author}</p>
-              </div>
+    <div class="book-grid">
+      {books.map((book) => {
+        const status = statusConfig[book.data.status];
+        return book.data.status !== 'todo' ? (
+          <a href={`/books/${book.slug}`} class="book-card book-card-clickable" title="查看读书笔记">
+            <div class="book-cover-wrapper">
+              <img src={book.data.cover} alt={book.data.title} class="book-cover" loading="lazy" decoding="async" />
             </div>
-          )
-        })}
-      </div>
-    </main>
-  </body>
-</html>
+            <div class="book-info">
+              <div class="book-title-row">
+                <h3 class="book-title">{book.data.title}</h3>
+                <div class={`book-status ${status.class}`}>
+                  <span set:html={status.icon} />
+                  <span class="status-text">{status.text}</span>
+                </div>
+              </div>
+              <p class="book-author">{book.data.author}</p>
+            </div>
+          </a>
+        ) : (
+          <div class="book-card book-card-disabled">
+            <div class="book-cover-wrapper">
+              <img src={book.data.cover} alt={book.data.title} class="book-cover" loading="lazy" decoding="async" />
+            </div>
+            <div class="book-info">
+              <div class="book-title-row">
+                <h3 class="book-title">{book.data.title}</h3>
+                <div class={`book-status ${status.class}`}>
+                  <span set:html={status.icon} />
+                  <span class="status-text">{status.text}</span>
+                </div>
+              </div>
+              <p class="book-author">{book.data.author}</p>
+            </div>
+          </div>
+        )
+      })}
+    </div>
+  </main>
+</BaseLayout>

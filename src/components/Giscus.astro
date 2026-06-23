@@ -2,34 +2,84 @@
 // Giscus 评论组件
 ---
 
-<div class="giscus-wrapper">
-  <script
-    src="https://giscus.app/client.js"
-    data-repo="umupa/blog"
-    data-repo-id="R_kgDONyPU6Q"
-    data-category="Announcements"
-    data-category-id="DIC_kwDONyPU6c4C0UA1"
-    data-mapping="pathname"
-    data-strict="0"
-    data-reactions-enabled="1"
-    data-emit-metadata="0"
-    data-input-position="bottom"
-    data-theme="fro"
-    data-lang="zh-CN"
-    crossorigin="anonymous"
-    async
-  ></script>
-</div>
+<div class="giscus-wrapper" data-giscus-wrapper></div>
+
+<script is:inline>
+  (() => {
+    const wrapper = document.querySelector('[data-giscus-wrapper]');
+    if (!wrapper) return;
+
+    const getTheme = () => document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+    let isLoaded = false;
+
+    const syncTheme = () => {
+      const iframe = wrapper.querySelector('iframe.giscus-frame');
+      iframe?.contentWindow?.postMessage(
+        {
+          giscus: {
+            setConfig: {
+              theme: getTheme(),
+            },
+          },
+        },
+        'https://giscus.app',
+      );
+    };
+
+    const loadGiscus = () => {
+      if (isLoaded) return;
+      isLoaded = true;
+
+      const script = document.createElement('script');
+      script.src = 'https://giscus.app/client.js';
+      script.async = true;
+      script.crossOrigin = 'anonymous';
+      script.dataset.repo = 'umupa/blog';
+      script.dataset.repoId = 'R_kgDONyPU6Q';
+      script.dataset.category = 'Announcements';
+      script.dataset.categoryId = 'DIC_kwDONyPU6c4C0UA1';
+      script.dataset.mapping = 'pathname';
+      script.dataset.strict = '0';
+      script.dataset.reactionsEnabled = '1';
+      script.dataset.emitMetadata = '0';
+      script.dataset.inputPosition = 'bottom';
+      script.dataset.theme = getTheme();
+      script.dataset.lang = 'zh-CN';
+      wrapper.append(script);
+
+      new MutationObserver(syncTheme).observe(wrapper, { childList: true, subtree: true });
+    };
+
+    window.addEventListener('themechange', () => {
+      if (isLoaded) syncTheme();
+    });
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return;
+        observer.disconnect();
+        loadGiscus();
+      }, { rootMargin: '900px 0px' });
+      observer.observe(wrapper);
+      return;
+    }
+
+    window.addEventListener('load', loadGiscus, { once: true });
+  })();
+</script>
 
 <style>
   .giscus-wrapper {
-    max-width: 896px;
+    width: min(calc(100% - var(--container-gutter) * 2), var(--max-width));
+    max-width: var(--max-width);
     margin-left: auto;
     margin-right: auto;
-    padding: 0 1.5rem;
+    padding: 0;
     box-sizing: border-box;
     border-top: 1px solid var(--border-color);
     margin-top: 3rem;
     padding-top: 2.5rem;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 520px;
   }
 </style>
