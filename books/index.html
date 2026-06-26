@@ -1,0 +1,110 @@
+<!DOCTYPE html><html lang="zh-CN"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="color-scheme" content="light dark"><script>
+      (() => {
+        let savedTheme;
+        try {
+          savedTheme = localStorage.getItem('theme');
+        } catch {
+          savedTheme = undefined;
+        }
+        const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        const theme = savedTheme || systemTheme;
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script><link rel="icon" type="image/svg+xml" href="/favicon.svg"><link rel="stylesheet" href="/fonts/jinkai/index.css"><title>Books - Umupa&#39;s blog</title><meta name="description" content="读书笔记"><link rel="stylesheet" href="/_astro/_slug_.DwNnl6oK.css"></head> <body> <header class="site-header container"> <h1 class="site-title"> <a href="/">Umupa's blog</a> </h1> <div class="header-subtitle-row"> <p class="site-description">Don't die, and don't forget to live.</p> <div class="header-icons"> <button class="theme-toggle" type="button" aria-label="切换深浅色主题" data-theme-toggle> <svg class="theme-icon theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true"> <circle cx="12" cy="12" r="4"></circle> <path d="M12 2v2"></path> <path d="M12 20v2"></path> <path d="m4.93 4.93 1.41 1.41"></path> <path d="m17.66 17.66 1.41 1.41"></path> <path d="M2 12h2"></path> <path d="M20 12h2"></path> <path d="m6.34 17.66-1.41 1.41"></path> <path d="m19.07 4.93-1.41 1.41"></path> </svg> <svg class="theme-icon theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true"> <path d="M12 3a6.8 6.8 0 0 0 8.8 8.8 8.2 8.2 0 1 1-8.8-8.8Z"></path> </svg> </button> <script>
+  (() => {
+    const toggles = document.querySelectorAll('[data-theme-toggle]');
+    if (toggles.length === 0) return;
+
+    const applyLabel = () => {
+      const isDark = document.documentElement.dataset.theme === 'dark';
+      toggles.forEach((toggle) => {
+        toggle.setAttribute('aria-label', isDark ? '切换到浅色主题' : '切换到深色主题');
+        toggle.setAttribute('title', isDark ? '切换到浅色主题' : '切换到深色主题');
+      });
+    };
+
+    applyLabel();
+
+    toggles.forEach((toggle) => {
+      toggle.addEventListener('click', () => {
+        const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+        document.documentElement.dataset.theme = nextTheme;
+        document.documentElement.style.colorScheme = nextTheme;
+        try {
+          localStorage.setItem('theme', nextTheme);
+        } catch {
+          // The visual theme can still switch when persistence is unavailable.
+        }
+        window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: nextTheme } }));
+        applyLabel();
+      });
+    });
+  })();
+</script> <a href="https://github.com/Umupa" target="_blank" rel="noopener" aria-label="GitHub"> <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"> <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path> </svg> </a> </div> </div> <nav class="header-nav" aria-label="主导航"> <ul> <li> <a href="/"> Blog </a> </li><li> <a href="/books" class="is-active" aria-current="page"> Books </a> </li><li> <a href="/about"> About </a> </li> </ul> </nav> </header>  <main class="container"> <p class="page-tagline">种一棵树最好的时间是十年前，其次是现在</p> <div class="book-grid"> <a href="/books/just-for-fun" class="book-card book-card-clickable" title="查看读书笔记"> <div class="book-cover-wrapper"> <img src="https://cdn.weread.qq.com/weread/cover/45/cpplatform_mgyk9uadkqseidodhkrxqs/t6_cpplatform_mgyk9uadkqseidodhkrxqs1773108069.jpg" alt="只是为了好玩：Linux之父林纳斯自传（修订版）" class="book-cover" loading="lazy" decoding="async"> </div> <div class="book-info"> <div class="book-title-row"> <h3 class="book-title">只是为了好玩：Linux之父林纳斯自传（修订版）</h3> <div class="book-status status-finished"> <span><svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span> <span class="status-text">已读</span> </div> </div> <p class="book-author">[美]林纳斯·托瓦兹  [美]戴维·戴蒙德</p> </div> </a><a href="/books/the-truth-about-passive-income" class="book-card book-card-clickable" title="查看读书笔记"> <div class="book-cover-wrapper"> <img src="https://cdn.weread.qq.com/weread/cover/49/cpplatform_jrrakdumq2spjkp1rpppnf/t6_cpplatform_jrrakdumq2spjkp1rpppnf1769065270.jpg" alt="睡后收入的真相：怎样让你躺着就能赚钱" class="book-cover" loading="lazy" decoding="async"> </div> <div class="book-info"> <div class="book-title-row"> <h3 class="book-title">睡后收入的真相：怎样让你躺着就能赚钱</h3> <div class="book-status status-finished"> <span><svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span> <span class="status-text">已读</span> </div> </div> <p class="book-author">珈一</p> </div> </a><a href="/books/the-psychology-of-money" class="book-card book-card-clickable" title="查看读书笔记"> <div class="book-cover-wrapper"> <img src="https://cdn.weread.qq.com/weread/cover/31/cpplatform_fx1z5bkdgmbwqoatwezcxp/t6_cpplatform_fx1z5bkdgmbwqoatwezcxp1778466805.jpg" alt="金钱心理学 （全新增订版）" class="book-cover" loading="lazy" decoding="async"> </div> <div class="book-info"> <div class="book-title-row"> <h3 class="book-title">金钱心理学 （全新增订版）</h3> <div class="book-status status-finished"> <span><svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span> <span class="status-text">已读</span> </div> </div> <p class="book-author">[美]摩根·豪泽尔</p> </div> </a><a href="/books/the-most-important-thing" class="book-card book-card-clickable" title="查看读书笔记"> <div class="book-cover-wrapper"> <img src="https://wfqqreader-1252317822.image.myqcloud.com/cover/32/25242032/t6_25242032.jpg" alt="投资最重要的事" class="book-cover" loading="lazy" decoding="async"> </div> <div class="book-info"> <div class="book-title-row"> <h3 class="book-title">投资最重要的事</h3> <div class="book-status status-finished"> <span><svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span> <span class="status-text">已读</span> </div> </div> <p class="book-author">霍华德·马克斯</p> </div> </a><a href="/books/soft-tech" class="book-card book-card-clickable" title="查看读书笔记"> <div class="book-cover-wrapper"> <img src="https://static.umupa.fun/2026/02/29c50b82220d1f5bae615d3fd12a5add.png" alt="软技能：代码之外的生存指南" class="book-cover" loading="lazy" decoding="async"> </div> <div class="book-info"> <div class="book-title-row"> <h3 class="book-title">软技能：代码之外的生存指南</h3> <div class="book-status status-finished"> <span><svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span> <span class="status-text">已读</span> </div> </div> <p class="book-author">约翰·Z.森梅兹</p> </div> </a><a href="/books/erta-rta" class="book-card book-card-clickable" title="查看读书笔记"> <div class="book-cover-wrapper"> <img src="https://static.umupa.fun/2026/01/ea74687e63ef8ed79a936e9aed6805a0.png" alt="投资第一课" class="book-cover" loading="lazy" decoding="async"> </div> <div class="book-info"> <div class="book-title-row"> <h3 class="book-title">投资第一课</h3> <div class="book-status status-finished"> <span><svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span> <span class="status-text">已读</span> </div> </div> <p class="book-author">孟岩</p> </div> </a><a href="/books/the-power-of-now" class="book-card book-card-clickable" title="查看读书笔记"> <div class="book-cover-wrapper"> <img src="https://static.umupa.fun/2026/01/7eb87ca5a367c849db015a1195db239e.png" alt="当下的力量" class="book-cover" loading="lazy" decoding="async"> </div> <div class="book-info"> <div class="book-title-row"> <h3 class="book-title">当下的力量</h3> <div class="book-status status-finished"> <span><svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span> <span class="status-text">已读</span> </div> </div> <p class="book-author">埃克哈特·托利</p> </div> </a><a href="/books/the-almanack-of-naval-ravikant" class="book-card book-card-clickable" title="查看读书笔记"> <div class="book-cover-wrapper"> <img src="https://static.umupa.fun/2026/01/d5495b2953a96ddf221b4a5d9cd19677.png" alt="纳瓦尔宝典" class="book-cover" loading="lazy" decoding="async"> </div> <div class="book-info"> <div class="book-title-row"> <h3 class="book-title">纳瓦尔宝典</h3> <div class="book-status status-finished"> <span><svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span> <span class="status-text">已读</span> </div> </div> <p class="book-author">埃里克·乔根森</p> </div> </a><a href="/books/rich-dad-poor-dad" class="book-card book-card-clickable" title="查看读书笔记"> <div class="book-cover-wrapper"> <img src="https://static.umupa.fun/2026/01/96efd78dbbf9ca085350f87aca5776f1.png" alt="富爸爸穷爸爸" class="book-cover" loading="lazy" decoding="async"> </div> <div class="book-info"> <div class="book-title-row"> <h3 class="book-title">富爸爸穷爸爸</h3> <div class="book-status status-finished"> <span><svg class="status-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg></span> <span class="status-text">已读</span> </div> </div> <p class="book-author">罗伯特·清崎</p> </div> </a> </div> </main>  <div class="image-lightbox" data-image-lightbox hidden> <button type="button" aria-label="关闭图片预览" data-lightbox-close>×</button> <img alt="" data-lightbox-image> </div> <script>
+      (() => {
+        const lightbox = document.querySelector('[data-image-lightbox]');
+        const lightboxImage = document.querySelector('[data-lightbox-image]');
+        const closeButton = document.querySelector('[data-lightbox-close]');
+
+        document.addEventListener('click', (event) => {
+          const image = event.target.closest?.('.markdown-body img');
+          if (!image || !lightbox || !lightboxImage) return;
+          lightboxImage.src = image.currentSrc || image.src;
+          lightboxImage.alt = image.alt || '';
+          lightbox.hidden = false;
+          document.body.classList.add('is-lightbox-open');
+        });
+
+        const closeLightbox = () => {
+          if (!lightbox || !lightboxImage) return;
+          lightbox.hidden = true;
+          lightboxImage.removeAttribute('src');
+          document.body.classList.remove('is-lightbox-open');
+        };
+
+        closeButton?.addEventListener('click', closeLightbox);
+        lightbox?.addEventListener('click', (event) => {
+          if (event.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') closeLightbox();
+        });
+
+        document.querySelectorAll('pre').forEach((pre) => {
+          const code = pre.querySelector('code');
+          if (!code || pre.dataset.enhanced === 'true') return;
+          pre.dataset.enhanced = 'true';
+
+          const languageClass = Array.from(code.classList).find((className) => className.startsWith('language-'));
+          const language = languageClass?.replace('language-', '');
+
+          if (language) {
+            const label = document.createElement('span');
+            label.className = 'code-language';
+            label.textContent = language;
+            pre.append(label);
+          }
+
+          const button = document.createElement('button');
+          button.type = 'button';
+          button.className = 'code-copy';
+          button.textContent = 'Copy';
+          button.addEventListener('click', async () => {
+            try {
+              await navigator.clipboard.writeText(code.innerText);
+              button.textContent = 'Copied';
+              window.setTimeout(() => {
+                button.textContent = 'Copy';
+              }, 1400);
+            } catch {
+              button.textContent = 'Failed';
+              window.setTimeout(() => {
+                button.textContent = 'Copy';
+              }, 1400);
+            }
+          });
+          pre.append(button);
+        });
+      })();
+    </script> </body> </html>
