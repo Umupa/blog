@@ -1,139 +1,90 @@
-import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
-import os from 'node:os';
 import path from 'node:path';
+import wawoff2 from 'wawoff2';
+import { fontSplit } from 'cn-font-split';
 
 const root = process.cwd();
 const sourceFont = path.join(root, 'fonts-src', 'TsangerJinKai02-W04.woff2');
-const outputFont = path.join(root, 'public', 'fonts', 'TsangerJinKai02-W04-subset.woff2');
-const scanRoots = ['src', 'posts'];
-const textExtensions = new Set([
-  '.astro',
-  '.css',
-  '.html',
-  '.js',
-  '.json',
-  '.md',
-  '.mdx',
-  '.mjs',
-  '.qmd',
-  '.ts',
-]);
-
-const safelist = [
-  'Umupa',
-  "Umupa's blog",
-  'Blog Books About',
-  '已读 在读 待读 分类 Categories 读书笔记',
-  '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ',
-  ' ~!@#$%^&*()_+-=[]{}|;:\'",.<>/?`',
-  '，。！？、；：“”‘’（）《》〈〉【】—…·￥',
-].join('\n');
-
-function walk(dir, files = []) {
-  if (!fs.existsSync(dir)) {
-    return files;
-  }
-
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    const fullPath = path.join(dir, entry.name);
-
-    if (entry.isDirectory()) {
-      if (entry.name === 'node_modules' || entry.name === 'dist' || entry.name === '.astro') {
-        continue;
-      }
-      walk(fullPath, files);
-      continue;
-    }
-
-    if (textExtensions.has(path.extname(entry.name))) {
-      files.push(fullPath);
-    }
-  }
-
-  return files;
-}
-
-function collectText() {
-  const files = scanRoots.flatMap((scanRoot) => walk(path.join(root, scanRoot)));
-  const chunks = [safelist];
-
-  for (const file of files) {
-    chunks.push(fs.readFileSync(file, 'utf8'));
-  }
-
-  const text = chunks.join('\n');
-  const chars = Array.from(new Set([...text].filter((char) => {
-    const codePoint = char.codePointAt(0);
-    return codePoint === 0x0a || codePoint >= 0x20;
-  })));
-
-  chars.sort((a, b) => a.codePointAt(0) - b.codePointAt(0));
-  return chars.join('');
-}
+const outDir = path.join(root, 'public', 'fonts', 'jinkai');
+// 与 theme.css 的 --text-font 保持一致，免去改样式变量
+const fontFamily = 'TsangerJinKai02-W04';
+const chunkSize = 300 * 1024;
 
 function formatBytes(bytes) {
-  if (bytes < 1024) {
-    return `${bytes} B`;
-  }
-  if (bytes < 1024 * 1024) {
-    return `${(bytes / 1024).toFixed(1)} KB`;
-  }
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
   return `${(bytes / 1024 / 1024).toFixed(2)} MB`;
 }
 
-function runSubsetter(textFile) {
-  const pyftsubsetArgs = [
-    sourceFont,
-    `--text-file=${textFile}`,
-    `--output-file=${outputFont}`,
-    '--flavor=woff2',
-    '--layout-features=*',
-    '--no-hinting',
-  ];
-
-  const direct = spawnSync('pyftsubset', pyftsubsetArgs, { stdio: 'inherit' });
-  if (direct.status === 0) {
-    return;
+function totalSize(dir) {
+  let total = 0;
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) {
+      total += totalSize(full);
+    } else {
+      total += fs.statSync(full).size;
+    }
   }
-
-  if (direct.error && direct.error.code !== 'ENOENT') {
-    throw direct.error;
-  }
-
-  const env = {
-    ...process.env,
-    UV_CACHE_DIR: process.env.UV_CACHE_DIR || path.join(os.tmpdir(), 'uv-cache'),
-    UV_TOOL_DIR: process.env.UV_TOOL_DIR || path.join(os.tmpdir(), 'uv-tools'),
-  };
-
-  const uvx = spawnSync(
-    'uvx',
-    ['--from', 'fonttools[woff]', 'pyftsubset', ...pyftsubsetArgs],
-    { stdio: 'inherit', env },
-  );
-
-  if (uvx.status !== 0) {
-    throw new Error('Unable to run pyftsubset. Install fonttools or uvx, then retry.');
-  }
+  return total;
 }
 
 if (!fs.existsSync(sourceFont)) {
   throw new Error(`Missing source font: ${sourceFont}`);
 }
 
-fs.mkdirSync(path.dirname(outputFont), { recursive: true });
+// 清空旧产物，避免残留过期分包
+fs.rmSync(outDir, { recursive: true, force: true });
+fs.mkdirSync(outDir, { recursive: true });
 
-const text = collectText();
-const textFile = path.join(os.tmpdir(), 'umupa-blog-font-subset.txt');
-fs.writeFileSync(textFile, text, 'utf8');
+// cn-font-split v7 不接受 woff2 直输，先用 wawoff2 解压成 ttf
+console.log('Decompressing woff2 → ttf ...');
+const woff2Buffer = fs.readFileSync(sourceFont);
+const ttfBuffer = await wawoff2.decompress(woff2Buffer);
+console.log(`  ttf size: ${formatBytes(ttfBuffer.length)}`);
 
-runSubsetter(textFile);
+console.log('Splitting font into unicode-range subsets ...');
+await fontSplit({
+  input: new Uint8Array(ttfBuffer),
+  outDir,
+  css: {
+    fontFamily,
+    fontDisplay: 'swap',
+  },
+  renameOutputFont: '[index].[ext]',
+  chunkSize,
+  testHtml: false,
+  reporter: false,
+  silent: true,
+});
 
-const sourceSize = fs.statSync(sourceFont).size;
-const outputSize = fs.statSync(outputFont).size;
-const cjkCount = [...text].filter((char) => /[\u3400-\u9fff\uf900-\ufaff]/u.test(char)).length;
+// 找到生成的 CSS，统一重命名为 index.css，便于在布局里稳定引用
+const generatedCss = fs.readdirSync(outDir).find((name) => name.endsWith('.css'));
+if (!generatedCss) {
+  throw new Error('cn-font-split did not output a CSS file');
+}
+const cssPath = path.join(outDir, 'index.css');
+if (generatedCss !== 'index.css') {
+  fs.renameSync(path.join(outDir, generatedCss), cssPath);
+}
 
-console.log(`Subset glyph text: ${text.length} unique chars, ${cjkCount} CJK chars`);
-console.log(`Source font: ${formatBytes(sourceSize)}`);
-console.log(`Subset font: ${formatBytes(outputSize)}`);
+const css = fs.readFileSync(cssPath, 'utf8').replace(/src:local\("[^"]+"\),url\(/g, 'src:url(');
+fs.writeFileSync(cssPath, css);
+
+for (const entry of fs.readdirSync(outDir)) {
+  if (!entry.endsWith('.woff2') && entry !== 'index.css') {
+    fs.rmSync(path.join(outDir, entry), { force: true });
+  }
+}
+
+const woff2Files = fs.readdirSync(outDir).filter((name) => name.endsWith('.woff2'));
+const cssSize = fs.statSync(cssPath).size;
+
+console.log('');
+console.log(`Subsets:     ${woff2Files.length} files`);
+console.log(`Total size:  ${formatBytes(totalSize(outDir))} (woff2 chunks + index.css)`);
+console.log(`CSS size:    ${formatBytes(cssSize)} → /fonts/jinkai/index.css`);
+console.log(`font-family: '${fontFamily}'`);
+
+// cn-font-split's Node FFI handle can keep the event loop alive after output.
+process.exit(0);

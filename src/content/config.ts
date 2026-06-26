@@ -18,6 +18,8 @@ const books = defineCollection({
     cover: z.string(),
     date: z.date(),
     status: z.enum(['finished', 'reading', 'todo']),
+    wereadBookId: z.string().optional(),
+    source: z.enum(['weread']).optional(),
   }),
 });
 

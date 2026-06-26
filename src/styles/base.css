@@ -5,7 +5,6 @@
 /* ==================== Base Layout ==================== */
 html {
   font-size: 15px;
-  font-display: block;
   color: var(--text-color);
   font-family: var(--text-font);
   -webkit-font-smoothing: subpixel-antialiased;
